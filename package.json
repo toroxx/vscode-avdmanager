@@ -30,7 +30,7 @@
   "activationEvents": [
     "onView:avdmanager-avd",
     "onView:avdmanager-sdk-platforms",
-    "onCommand:avdmanager.cmd-avdlist-refresh",
+    "onCommand:avdmanager.cmd-avdlist-refresh"
   ],
   "main": "./dist/extension.js",
   "contributes": {
