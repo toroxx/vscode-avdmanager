@@ -1,0 +1,246 @@
+{
+  "name": "vscode-avdmanager",
+  "displayName": "AVD Manager",
+  "description": "Android Virtual Device Manager for VSCode",
+  "publisher": "toroxx",
+  "license": "MIT",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lawrence Lau",
+    "email": "m@psi.tv",
+    "url": "https://github.com/toroxx"
+  },
+  "icon": "resources/logo.png",
+  "keywords": [
+    "torolab",
+    "psi",
+    "tx",
+    "avd",
+    "avdmanager",
+    "android",
+    "emulator",
+    "sdkmanager"
+  ],
+  "engines": {
+    "vscode": "^1.65.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:avdmanager-avd",
+    "onView:avdmanager-sdk-platforms",
+    "onCommand:avdmanager.cmd-avdlist-refresh",
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "views": {
+      "avdmanager": [
+        {
+          "id": "avdmanager-avd",
+          "name": "Android Virtual Device",
+          "contextualTitle": "AVD Manager - Android Virtual Device",
+          "icon": "resources/icon.svg",
+          "visibility": "visible"
+        },
+        {
+          "id": "avdmanager-sdk-platforms",
+          "name": "SDK Platforms",
+          "contextualTitle": "Android - SDK Platforms",
+          "icon": "resources/icon.svg",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "avdmanager",
+          "title": "AVDManager",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "avdmanager.cmd-avdlist-refresh",
+        "title": "AVDManager:📱 Refresh AVD List"
+      },
+      {
+        "command": "avdmanager.avd-create",
+        "title": "Create",
+        "icon": "$(plus)"
+      },
+      {
+        "command": "avdmanager.avdlist-refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "avdmanager.avd-launch",
+        "title": "Launch",
+        "icon": "$(run)"
+      },
+      {
+        "command": "avdmanager.avd-edit",
+        "title": "Edit",
+        "icon": "$(notebook-edit)"
+      },
+      {
+        "command": "avdmanager.avd-delete",
+        "title": "Delete",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "avdmanager.cmd-sdk-platforms-refresh",
+        "title": "AVDManager:📱 Refresh SDK Platforms List"
+      },
+      {
+        "command": "avdmanager.sdk-platforms-refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "avdmanager.pkg-uninstall",
+        "title": "Uninstall",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "avdmanager.pkg-install",
+        "title": "Install",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "avdmanager.cmd-sdk-accept-license",
+        "title": "AVDManager:📱 Accept All SDK Licenses"
+      },
+      {
+        "command": "avdmanager.sdk-accept-license",
+        "title": "Accept All SDK Licenses",
+        "icon": "$(gear)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "avdmanager.avdlist-refresh",
+          "when": "view == avdmanager-avd",
+          "group": "navigation@2"
+        },
+        {
+          "command": "avdmanager.sdk-platforms-refresh",
+          "when": "view == avdmanager-sdk-platforms",
+          "group": "navigation@2"
+        },
+        {
+          "command": "avdmanager.sdk-accept-license",
+          "when": "view == avdmanager-sdk-platforms",
+          "group": "navigation@1"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "avdmanager.avd-launch",
+          "when": "view == avdmanager-avd && viewItem == avd",
+          "group": "inline@1"
+        },
+        {
+          "command": "avdmanager.avd-edit",
+          "when": "view == avdmanager-avd && viewItem == avd",
+          "group": "inline@2"
+        },
+        {
+          "command": "avdmanager.avd-delete",
+          "when": "view == avdmanager-avd"
+        },
+        {
+          "command": "avdmanager.pkg-uninstall",
+          "when": "view == avdmanager-sdk-platforms && viewItem =~ /^sdk-pkg-installed/",
+          "group": "inline@2"
+        },
+        {
+          "command": "avdmanager.avd-create",
+          "when": "view == avdmanager-sdk-platforms && viewItem == sdk-pkg-installed-img",
+          "group": "inline@1"
+        },
+        {
+          "command": "avdmanager.pkg-install",
+          "when": "view == avdmanager-sdk-platforms && viewItem == sdk-pkg",
+          "group": "inline@2"
+        }
+      ]
+    },
+   
+    "configuration": {
+      "title": "AVD Manager",
+      "type": "object",
+      "properties": {
+        "avdmanager.executable": {
+          "title": "AVD Manager executable path",
+          "type": "string",
+          "default": "avdmanager",
+          "description": "AVD Manager executable path"
+        },
+        "avdmanager.sdkManager": {
+          "title": "Android SDK Manager executable path",
+          "type": "string",
+          "default": "sdkManager",
+          "description": "Android SDK Manager executable path"
+        },
+        "avdmanager.emulator": {
+          "title": "Android emulator executable path",
+          "type": "string",
+          "default": "emulator",
+          "description": "Android emulator executable path"
+        },
+        "avdmanager.emulatorOpt": {
+          "title": "Android emulator options",
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Android emulator options. [Start the emulator from the command line](https://developer.android.com/studio/run/emulator-commandline)"
+        }
+      }
+    }
+  },
+  "capabilities": {
+    "virtualWorkspaces": true,
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.0",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.65.0",
+    "@typescript-eslint/eslint-plugin": "^5.12.1",
+    "@typescript-eslint/parser": "^5.12.1",
+    "@vscode/test-electron": "^2.1.2",
+    "eslint": "^8.9.0",
+    "glob": "^7.2.0",
+    "mocha": "^9.2.1",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.5",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "iconv-lite": "^0.6.3"
+  },
+
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/toroxx/vscode-avdmanager.git"
+	}
+}
