@@ -1,9 +1,10 @@
-# Change Log
+# Android Virtual Device (AVD) Manager Change Log
 
-All notable changes to the "vscode-webview" extension will be documented in this file.
+### 1.0.1
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+- Fix AVDManager delete command
+- Change VSCode Engine from 1.65.0 to 1.60.0
 
-## [Unreleased]
+### 1.0.0
 
-- Initial release
+Initial releas
