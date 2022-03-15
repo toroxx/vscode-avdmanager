@@ -207,7 +207,9 @@ export class AVDTreeItem extends vscode.TreeItem {
         ];
         let tooltip = "";
         infos.forEach(element => {
-            tooltip += (tooltip.length === 0 ? "" : "\n") + `${element.name}: ${element.value}`;
+            if (element.value){
+                tooltip += (tooltip.length === 0 ? "" : "\n") + `${element.name}: ${element.value}`;
+            }
         });
         this.tooltip = tooltip;
     }

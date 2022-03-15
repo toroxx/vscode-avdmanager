@@ -7,6 +7,14 @@ See the [CHANGELOG](CHANGELOG.md) for the latest changes.
 
 inspired by [oognuyh/vscode-android-emulator-helper](https://github.com/oognuyh/vscode-android-emulator-helper)
 
+## Install
+
+- VSCode Marketplace
+  [https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager](https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager)
+  
+- Open-VSX
+  [https://open-vsx.org/extension/toroxx/vscode-avdmanager](https://open-vsx.org/extension/toroxx/vscode-avdmanager)
+
 ## Features
 
 AVD Manager
