@@ -64,7 +64,7 @@ let commands: { [key in Command]?: ICommandProp } = {
     //delete avd -n name
     [Command.delete]: {
         log: true,
-        command: `{{exe}} delete avd -n {{0}} -r {{1}}`,
+        command: `{{exe}} delete avd -n {{0}}`,
         msg: `{{0}} is deleting...`,
         successMsg: `{{0}} deleted successfully.`,
         failureMsg: `Failed to delete {{0}}.`
