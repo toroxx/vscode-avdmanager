@@ -1,7 +1,7 @@
 # Android Virtual Device (AVD) Manager
 
-AVD Manager GUI for Visual Studio code.
-Launch android emulator without touching the Android Studio😎.
+AVD Manager GUI for Visual Studio Code.
+Launch android emulator without touching the Android Studio😎
 
 See the [CHANGELOG](CHANGELOG.md) for the latest changes.
 
@@ -11,16 +11,14 @@ inspired by [oognuyh/vscode-android-emulator-helper](https://github.com/oognuyh/
 
 - VSCode Marketplace
   [https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager](https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager)
-  
 - Open-VSX
   [https://open-vsx.org/extension/toroxx/vscode-avdmanager](https://open-vsx.org/extension/toroxx/vscode-avdmanager)
 
 ## Features
 
-AVD Manager
+### AVD Manager
 
-* Create AVD (+ Button)
-  ![img](image/README/1647306492723.png)
+* Create AVD (+ Button)![img](image/README/1647306492723.png)
 * Rename AVD [Pen Icon Button]
   ![img](image/README/1647306376053.png)
 * Delete AVD [Right Click on AVD Name]
@@ -28,14 +26,19 @@ AVD Manager
 * AVD Details [Mouseover on the AVD name]
   ![img](image/README/1647306806230.png)
 
-SDK Platforms
+### SDK Platforms
 
 * Install packages (system-image, platforms, source-code)
   ![img](image/README/1647306155699.png)
 * Accept SDK licenses [Gear Button]
   ![img](image/README/1647306223521.png)
 
-Emulator
+### SDK Tools
+
+* Install SDK Tools E.g. Build-tools, cmake, emulator, etc.
+  ![img](image/README/1647538210189.png)
+
+### Emulator
 
 * Launch AVD [Play Button]
   ![img](image/README/1647306185675.png)
@@ -45,6 +48,7 @@ Emulator
 1. Download Android SDK Command-line Tools
    [https://developer.android.com/studio/command-line](https://developer.android.com/studio/command-line)
 2. Download Emulator via cli tools
+
    ```bash
    sdkmanager emulator
    ```
@@ -60,8 +64,12 @@ Emulator
 
 ### AVD Manager
 
-![](image/README/1647305763146.png)
+![img](image/README/1647305763146.png)
 
 ### SDK Platforms
 
-![](image/README/1647305800773.png)
+![img](image/README/1647305800773.png)
+
+### SDK Tools
+
+![](image/README/1647538046602.png)

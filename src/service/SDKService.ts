@@ -54,8 +54,8 @@ export class SDKService extends Service {
         return this.sdkmanager.exec<string>(SDKCommand.uninstallPkg, pkgname, displayName);
     }
 
-    async getSDKPlatforms(noCache: boolean = false): Promise<{ [key: string]: PKG } | undefined> {
-        let out = this.getCache("getSDKPlatform");
+    async getSDKList(noCache: boolean = false): Promise<{ [key: string]: PKG } | undefined> {
+        let out = this.getCache("getSDKList");
         if (!out || noCache) {
             out = await Promise.all([this.getPkgs(noCache), this.getInstalledPkgs(noCache)]).then(data => {
                 let [pkgs, installed] = data;
@@ -69,7 +69,7 @@ export class SDKService extends Service {
                 return pkgsKeyed;
             });
 
-            this.setCache("getSDKPlatform", out);
+            this.setCache("getSDKList", out);
         }
         return out;
     }

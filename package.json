@@ -4,7 +4,7 @@
   "description": "Android Virtual Device Manager for VSCode",
   "publisher": "toroxx",
   "license": "MIT",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "author": {
     "name": "Lawrence Lau",
     "email": "m@psi.tv",
@@ -19,6 +19,7 @@
     "avdmanager",
     "android",
     "emulator",
+    "sdk",
     "sdkmanager"
   ],
   "engines": {
@@ -29,8 +30,11 @@
   ],
   "activationEvents": [
     "onView:avdmanager-avd",
+    "onCommand:avdmanager.cmd-avdlist-refresh",
     "onView:avdmanager-sdk-platforms",
-    "onCommand:avdmanager.cmd-avdlist-refresh"
+    "onCommand:avdmanager.cmd-sdk-platforms-refresh",
+    "onView:avdmanager-sdk-tools",
+    "onCommand:avdmanager.cmd-sdk-tools-refresh"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -49,6 +53,13 @@
           "contextualTitle": "Android - SDK Platforms",
           "icon": "resources/icon.svg",
           "visibility": "visible"
+        },
+        {
+          "id": "avdmanager-sdk-tools",
+          "name": "SDK Tools",
+          "contextualTitle": "Android - SDK Tools",
+          "icon": "resources/icon.svg",
+          "visibility": "collapsed"
         }
       ]
     },
@@ -101,6 +112,15 @@
         "icon": "$(refresh)"
       },
       {
+        "command": "avdmanager.cmd-sdk-tools-refresh",
+        "title": "AVDManager:📱 Refresh SDK Tools List"
+      },
+      {
+        "command": "avdmanager.sdk-tools-refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
         "command": "avdmanager.pkg-uninstall",
         "title": "Uninstall",
         "icon": "$(trash)"
@@ -111,11 +131,21 @@
         "icon": "$(cloud-download)"
       },
       {
+        "command": "avdmanager.sdktool-pkg-uninstall",
+        "title": "Uninstall",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "avdmanager.sdktool-pkg-install",
+        "title": "Install",
+        "icon": "$(cloud-download)"
+      },
+      {
         "command": "avdmanager.cmd-sdk-accept-license",
         "title": "AVDManager:📱 Accept All SDK Licenses"
       },
       {
-        "command": "avdmanager.sdk-accept-license",
+        "command": "avdmanager.pkg-accept-license",
         "title": "Accept All SDK Licenses",
         "icon": "$(gear)"
       }
@@ -133,8 +163,13 @@
           "group": "navigation@2"
         },
         {
-          "command": "avdmanager.sdk-accept-license",
-          "when": "view == avdmanager-sdk-platforms",
+          "command": "avdmanager.sdk-tools-refresh",
+          "when": "view == avdmanager-sdk-tools",
+          "group": "navigation@2"
+        },
+        {
+          "command": "avdmanager.pkg-accept-license",
+          "when": "view == avdmanager-sdk-platforms || view == avdmanager-sdk-tools",
           "group": "navigation@1"
         }
       ],
@@ -167,10 +202,19 @@
           "command": "avdmanager.pkg-install",
           "when": "view == avdmanager-sdk-platforms && viewItem == sdk-pkg",
           "group": "inline@2"
+        },
+        {
+          "command": "avdmanager.sdktool-pkg-uninstall",
+          "when": "view == avdmanager-sdk-tools && viewItem =~ /^sdktool-pkg-installed/",
+          "group": "inline@2"
+        },
+        {
+          "command": "avdmanager.sdktool-pkg-install",
+          "when": "view == avdmanager-sdk-tools && viewItem == sdktool-pkg",
+          "group": "inline@2"
         }
       ]
     },
-   
     "configuration": {
       "title": "AVD Manager",
       "type": "object",
@@ -235,12 +279,8 @@
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2"
   },
-  "dependencies": {
-    "iconv-lite": "^0.6.3"
-  },
-
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/toroxx/vscode-avdmanager.git"
-	}
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toroxx/vscode-avdmanager.git"
+  }
 }

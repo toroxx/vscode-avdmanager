@@ -39,7 +39,7 @@ export class AVDTreeView {
             vscode.commands.registerCommand('avdmanager.avd-delete', async (node) => {
                 let name = node?.avd?.name ?? undefined;
                 this.deleteAVDDiag(name).then(() => this.provider.refresh());
-            }),
+            })
         ]);
 
     }

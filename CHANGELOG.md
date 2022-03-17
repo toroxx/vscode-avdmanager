@@ -1,5 +1,9 @@
 # Android Virtual Device (AVD) Manager Change Log
 
+### 1.1.0
+
+* Added SDK Tool
+
 ### 1.0.2
 
 * Fix AVD detail show "undefined"
