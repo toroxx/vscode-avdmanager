@@ -6,7 +6,7 @@ import { AVDTreeView } from './ui/AVDTreeView';
 import { SDKPlatformsTreeView } from './ui/SDKPlatformsTreeView';
 import { SDKToolsTreeView } from './ui/SDKToolsTreeView';
 import { subscribe, term } from './ext_util';
-import { Manager } from './manager';
+import { Manager } from './core';
 
 
 export function activate(context: vscode.ExtensionContext) {

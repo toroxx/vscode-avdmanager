@@ -3,7 +3,7 @@ import {
     workspace, ExtensionContext, MessageOptions, window,
     ProgressLocation, QuickPickOptions, QuickPickItem
 } from 'vscode';
-import { Manager } from "./Manager";
+import { Manager } from "./core";
 
 export enum MsgType {
     info, warning, error

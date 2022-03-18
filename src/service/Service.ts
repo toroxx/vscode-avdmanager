@@ -1,4 +1,4 @@
-import { IConfig, Manager } from "../manager";
+import { IConfig, Manager } from "../core";
 
 export abstract class Service {
     constructor(protected manager: Manager) { }

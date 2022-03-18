@@ -1,5 +1,5 @@
 import * as ext_util from "../ext_util";
-import { Manager } from "../manager";
+import { Manager } from "../core";
 import * as util from "../util";
 
 

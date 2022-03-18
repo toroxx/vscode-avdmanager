@@ -1,4 +1,4 @@
-import { Manager } from '../manager';
+import { Manager } from '../core';
 import { AVD, AVDDevice, AVDTarget, AVDManager, Command as avdcommand } from '../cmd/AVDManager';
 import { Service } from './Service';
 import { Emulator, Command as EmuCommand } from '../cmd/Emulator';

@@ -1,7 +1,7 @@
 
 import * as vscode from 'vscode';
 import { PKG } from '../cmd/SDKManager';
-import { Manager } from '../manager';
+import { Manager } from '../core';
 import * as util from '../util';
 import { showYesNoQuickPick, subscribe, term } from '../ext_util';
 

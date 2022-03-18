@@ -1,5 +1,5 @@
 
-import { Manager } from '../manager';
+import { Manager } from '../core';
 import { PKG, SDKManager, Command as SDKCommand } from '../cmd/SDKManager';
 import { Service } from './Service';
 import * as util from '../util';

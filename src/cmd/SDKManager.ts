@@ -1,4 +1,4 @@
-import { Manager } from '../manager';
+import { Manager } from '../core';
 import { ICommandProp, Executable, CommandType } from './Executable';
 
 

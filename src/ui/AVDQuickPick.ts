@@ -1,6 +1,6 @@
 import { QuickPickItem, window } from "vscode";
 import { AVD } from "../cmd/AVDManager";
-import { Manager } from "../manager";
+import { Manager } from "../core";
 
 export class AVDQuickPickItem implements QuickPickItem {
     label: string;
