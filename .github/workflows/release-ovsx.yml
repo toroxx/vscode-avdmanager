@@ -1,0 +1,31 @@
+name: release-ovsx
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 17
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install the dependencies
+        run: npm i
+
+      - name: Install npx
+        run: npm i -g npx
+
+      - name: Install ovsx
+        run: npm i -g ovsx
+
+      - name: Publish
+        run: npx ovsx publish -p ${{ secrets.OVSX_PAT }}

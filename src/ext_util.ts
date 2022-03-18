@@ -74,9 +74,11 @@ export const cmdSpawn = async function (manager: Manager, showLog: boolean, comm
                 if (stdoutBuf === "") {
                     return;
                 }
+                stdout += stdoutBuf;
+
                 if (showLog) { manager.append(stdoutBuf); }
                 console.log(stdoutBuf);
-                stdout += stdoutBuf;
+               
             });
         }
         if ("on" in child.stderr) {
@@ -85,10 +87,11 @@ export const cmdSpawn = async function (manager: Manager, showLog: boolean, comm
                 if (stderrBuf === "") {
                     return;
                 }
+                stderr += stderrBuf;
                 if (showLog) { manager.append(stderrBuf, "error"); }
 
                 console.log(stderrBuf);
-                stderr += stderrBuf;
+            
             });
         }
 

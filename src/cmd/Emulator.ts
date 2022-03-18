@@ -11,11 +11,11 @@ let commands: { [key in Command]?: ICommandProp } = {
 
     [Command.run]: {
         log: true,
-        type: CommandType.runOnly,
+        type: CommandType.spawn,
         command: {
-            window: `start /B {{exe}} @{{0}} {{1}}`,
-            linux: `{{exe}} @{{0}} {{1}} > /dev/null 2>&1 & `,
-            macOS: `{{exe}} @{{0}} {{1}} > /dev/null 2>&1 & `,
+            window: `{{exe}} @{{0}} {{1}}`,
+            linux: `{{exe}} @{{0}} {{1}}`,
+            macOS: `{{exe}} @{{0}} {{1}}`,
         },
 
         msg: `{{0}} is starting...`,

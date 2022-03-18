@@ -1,5 +1,9 @@
 # Android Virtual Device (AVD) Manager Change Log
 
+### 1.1.1
+
+* Show emulator log on the output display
+
 ### 1.1.0
 
 * Added SDK Tool

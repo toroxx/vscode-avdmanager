@@ -18,30 +18,40 @@ inspired by [oognuyh/vscode-android-emulator-helper](https://github.com/oognuyh/
 
 ### AVD Manager
 
-* Create AVD (+ Button)![img](image/README/1647306492723.png)
-* Rename AVD [Pen Icon Button]
-  ![img](image/README/1647306376053.png)
-* Delete AVD [Right Click on AVD Name]
-  ![img](image/README/1647306333965.png)
-* AVD Details [Mouseover on the AVD name]
-  ![img](image/README/1647306806230.png)
+Create AVD (+ Button)
+
+![img](image/README/1647306492723.png)
+
+Rename AVD [Pen Icon Button]
+![img](image/README/1647306376053.png)
+
+Delete AVD [Right Click on AVD Name]
+![img](image/README/1647306333965.png)
+
+AVD Details [Mouseover on the AVD name]
+![img](image/README/1647306806230.png)
 
 ### SDK Platforms
 
-* Install packages (system-image, platforms, source-code)
-  ![img](image/README/1647306155699.png)
-* Accept SDK licenses [Gear Button]
-  ![img](image/README/1647306223521.png)
+Install packages (system-image, platforms, source-code)
+![img](image/README/1647306155699.png)
+
+Accept SDK licenses [Gear Button]
+![img](image/README/1647306223521.png)
 
 ### SDK Tools
 
-* Install SDK Tools E.g. Build-tools, cmake, emulator, etc.
-  ![img](image/README/1647538210189.png)
+Install SDK Tools E.g. Build-tools, cmake, emulator, etc.
+![img](image/README/1647538210189.png)
 
 ### Emulator
 
-* Launch AVD [Play Button]
-  ![img](image/README/1647306185675.png)
+Launch AVD [Play Button]
+![img](image/README/1647306185675.png)
+
+Emulator Log 
+
+![](image/README/1647618267801.png)
 
 ## Requirements
 
