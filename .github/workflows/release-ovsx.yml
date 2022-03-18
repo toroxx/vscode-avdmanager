@@ -26,3 +26,4 @@ jobs:
 
       - name: Publish
         run: npx ovsx publish -p ${{ secrets.OVSX_PAT }}
+
