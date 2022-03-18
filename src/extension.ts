@@ -1,11 +1,12 @@
 
 import * as vscode from 'vscode';
 
-import { Manager } from './Manager';
+
 import { AVDTreeView } from './ui/AVDTreeView';
 import { SDKPlatformsTreeView } from './ui/SDKPlatformsTreeView';
 import { SDKToolsTreeView } from './ui/SDKToolsTreeView';
-import { showYesNoQuickPick, subscribe, term } from './ext_util';
+import { subscribe, term } from './ext_util';
+import { Manager } from './manager';
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -23,7 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
 		let sdkbin = manager.getConfig().sdkManager ?? "";
 		let t = term("Accept SDK licenses", sdkbin + " --licenses");
 
-		let c = 0;
+		let c: number = 0;
 		let i = setInterval(() => {
 			t.sendText("y");
 			if (c >= 10) {

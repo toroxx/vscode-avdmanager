@@ -92,10 +92,7 @@ export class Manager {
         };
     }
 
-
-
-
-    getConfig(): IConfig {
+    public getConfig(): IConfig {
         let config = workspace.getConfiguration('avdmanager');
         return {
             executable: config.get<string>("executable", "avdmanager"),
@@ -104,7 +101,7 @@ export class Manager {
             sdkManager: config.get<string>("sdkManager", "sdkManager")
         };
     }
-    getPlatform() {
+    public getPlatform() {
         switch (process.platform) {
             case 'linux':
                 return Platform.linux;
