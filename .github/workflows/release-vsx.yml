@@ -1,4 +1,4 @@
-name: release
+name: release-vsx
 
 on:
   release:
@@ -23,6 +23,6 @@ jobs:
 
       - name: Install vsce
         run: npm i -g vsce
-
+/home/runner/work/vscode-avdmanager/vscode-avdmanager/
       - name: Publish
         run: vsce publish -p ${{ secrets.VSX_PAT }}

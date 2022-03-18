@@ -1,6 +1,6 @@
 import * as ext_util from "../ext_util";
-import { IConfig, Manager, Platform } from "../../src/manager";
-import * as util from "../../src/util";
+import { Manager } from "../manager";
+import * as util from "../util";
 
 
 export interface ICommandPathform {
