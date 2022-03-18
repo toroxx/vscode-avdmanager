@@ -21,9 +21,6 @@ jobs:
       - name: Install the dependencies
         run: npm i
 
-      - name: Install npx
-        run: npm i -g npx
-
       - name: Install ovsx
         run: npm i -g ovsx
 
