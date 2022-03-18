@@ -20,4 +20,4 @@ jobs:
         uses: HaaLeo/publish-vscode-extension@v1
         with:
           dryRun: true
-          pat: ${{ secrets.OPEN_VSX_TOKEN }}
+          #pat: ${{ secrets.OPEN_VSX_TOKEN }}
