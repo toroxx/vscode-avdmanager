@@ -3,6 +3,7 @@
 ### 1.1.1
 
 * Show emulator log on the output display
+* fix relative path of ../src
 
 ### 1.1.0
 
