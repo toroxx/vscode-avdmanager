@@ -6,7 +6,6 @@ on:
       - published
   workflow_dispatch:
 
-
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -15,14 +14,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 17
-          registry-url: https://registry.npmjs.org/
-
-      - name: Install the dependencies
-        run: npm i
-
-      - name: Install ovsx
-        run: npm i -g ovsx
-
-      - name: Publish
-        run: npx ovsx publish -p ${{ secrets.OVSX_PAT }}
+          node-version: 16
+      - run: npm ci
+      - name: Publish to Open VSX Registry
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          dryRun: true
+          pat: ${{ secrets.OPEN_VSX_TOKEN }}
