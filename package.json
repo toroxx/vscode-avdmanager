@@ -4,7 +4,7 @@
   "description": "Android Virtual Device Manager for VSCode",
   "publisher": "toroxx",
   "license": "MIT",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": {
     "name": "Lawrence Lau",
     "email": "m@psi.tv",
@@ -30,11 +30,13 @@
   ],
   "activationEvents": [
     "onView:avdmanager-avd",
-    "onCommand:avdmanager.cmd-avdlist-refresh",
+    "onCommand:avdmanager.avdlist-refresh",
     "onView:avdmanager-sdk-platforms",
-    "onCommand:avdmanager.cmd-sdk-platforms-refresh",
+    "onCommand:avdmanager.sdk-platforms-refresh",
     "onView:avdmanager-sdk-tools",
-    "onCommand:avdmanager.cmd-sdk-tools-refresh"
+    "onCommand:avdmanager.sdk-tools-refresh",
+    "onCommand:avdmanager.pkg-accept-license",
+    "onCommand:avdmanager.pkg-update-all"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -74,17 +76,15 @@
     },
     "commands": [
       {
-        "command": "avdmanager.cmd-avdlist-refresh",
-        "title": "AVDManager:📱 Refresh AVD List"
-      },
-      {
         "command": "avdmanager.avd-create",
         "title": "Create",
         "icon": "$(plus)"
       },
       {
         "command": "avdmanager.avdlist-refresh",
-        "title": "Refresh",
+        "title": "Refresh AVD List",
+        "shortTitle": "Refresh",
+        "category": "AVDManager📱",
         "icon": "$(refresh)"
       },
       {
@@ -103,21 +103,17 @@
         "icon": "$(trash)"
       },
       {
-        "command": "avdmanager.cmd-sdk-platforms-refresh",
-        "title": "AVDManager:📱 Refresh SDK Platforms List"
-      },
-      {
         "command": "avdmanager.sdk-platforms-refresh",
-        "title": "Refresh",
+        "title": "Refresh SDK Platforms List",
+        "shortTitle": "Refresh",
+        "category": "AVDManager📱",
         "icon": "$(refresh)"
       },
       {
-        "command": "avdmanager.cmd-sdk-tools-refresh",
-        "title": "AVDManager:📱 Refresh SDK Tools List"
-      },
-      {
         "command": "avdmanager.sdk-tools-refresh",
-        "title": "Refresh",
+        "title": "Refresh SDK Tools List",
+        "shortTitle": "Refresh",
+        "category": "AVDManager📱",
         "icon": "$(refresh)"
       },
       {
@@ -141,13 +137,16 @@
         "icon": "$(cloud-download)"
       },
       {
-        "command": "avdmanager.cmd-sdk-accept-license",
-        "title": "AVDManager:📱 Accept All SDK Licenses"
+        "command": "avdmanager.pkg-update-all",
+        "title": "Update All SDK Package",
+        "category": "AVDManager📱",
+        "icon": "$(sync)"
       },
       {
         "command": "avdmanager.pkg-accept-license",
         "title": "Accept All SDK Licenses",
-        "icon": "$(gear)"
+        "category": "AVDManager📱",
+        "icon": "$(check-all)"
       }
     ],
     "menus": {
@@ -160,17 +159,22 @@
         {
           "command": "avdmanager.sdk-platforms-refresh",
           "when": "view == avdmanager-sdk-platforms",
-          "group": "navigation@2"
+          "group": "navigation@5"
         },
         {
           "command": "avdmanager.sdk-tools-refresh",
           "when": "view == avdmanager-sdk-tools",
-          "group": "navigation@2"
+          "group": "navigation@5"
         },
         {
           "command": "avdmanager.pkg-accept-license",
           "when": "view == avdmanager-sdk-platforms || view == avdmanager-sdk-tools",
           "group": "navigation@1"
+        },
+        {
+          "command": "avdmanager.pkg-update-all",
+          "when": "view == avdmanager-sdk-platforms || view == avdmanager-sdk-tools",
+          "group": "navigation@2"
         }
       ],
       "view/item/context": [
@@ -189,11 +193,6 @@
           "when": "view == avdmanager-avd"
         },
         {
-          "command": "avdmanager.pkg-uninstall",
-          "when": "view == avdmanager-sdk-platforms && viewItem =~ /^sdk-pkg-installed/",
-          "group": "inline@2"
-        },
-        {
           "command": "avdmanager.avd-create",
           "when": "view == avdmanager-sdk-platforms && viewItem == sdk-pkg-installed-img",
           "group": "inline@1"
@@ -201,6 +200,11 @@
         {
           "command": "avdmanager.pkg-install",
           "when": "view == avdmanager-sdk-platforms && viewItem == sdk-pkg",
+          "group": "inline@2"
+        },
+        {
+          "command": "avdmanager.pkg-uninstall",
+          "when": "view == avdmanager-sdk-platforms && viewItem =~ /^sdk-pkg-installed/",
           "group": "inline@2"
         },
         {

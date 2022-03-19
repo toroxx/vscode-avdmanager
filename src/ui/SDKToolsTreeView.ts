@@ -14,7 +14,6 @@ export class SDKToolsTreeView {
         const view = vscode.window.createTreeView('avdmanager-sdk-tools', { treeDataProvider: this.provider, showCollapseAll: true });
         subscribe(context, [
             view,
-            vscode.commands.registerCommand('avdmanager.cmd-sdk-tools-refresh', this.refresh),
             vscode.commands.registerCommand('avdmanager.sdk-tools-refresh', this.refresh),
 
             vscode.commands.registerCommand("avdmanager.sdktool-pkg-install", async (node) => {
@@ -157,6 +156,20 @@ class SDKToolsTreeItem extends vscode.TreeItem {
         this.label = pkg.description;
         this.description = installed ? "Installed" : "";
         this.tooltip = pkg.pathRaw;
+
+        let infos = [
+            { name: "Path", value: pkg.pathRaw },
+            { name: "Location", value: pkg.location },
+            { name: "Version", value: pkg.version }
+        ];
+        let tooltip = "";
+        infos.forEach(element => {
+            if (element.value) {
+                tooltip += (tooltip.length === 0 ? "" : "\n") + `${element.name}: ${element.value}`;
+            }
+        });
+        this.tooltip = tooltip;
+
 
         let context = "sdktool-pkg";
         if (installed) {

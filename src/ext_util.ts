@@ -1,7 +1,7 @@
 import * as child_process from "child_process";
 import {
     workspace, ExtensionContext, MessageOptions, window,
-    ProgressLocation, QuickPickOptions, QuickPickItem
+    ProgressLocation, QuickPickOptions, QuickPickItem, Terminal
 } from 'vscode';
 import { Manager } from "./core";
 
@@ -57,6 +57,21 @@ export const term = function (name: string, command: string) {
 
 };
 
+export const sendTerm = function (term: Terminal, ...msg: string[]) {
+    return new Promise((resolve, reject) => {
+        let c: number = 0;
+        let i = setInterval(() => {
+            term.sendText(msg[c]);
+            c++;
+            if (c >= msg.length) {
+                clearInterval(i);
+                resolve(true);
+            }
+        }, 1000);
+    });
+};
+
+
 export const cmdSpawn = async function (manager: Manager, showLog: boolean, command: string, willLoadMsg?: string, success?: string, failure?: string) {
 
     console.log("CMD Spawn");
@@ -78,7 +93,7 @@ export const cmdSpawn = async function (manager: Manager, showLog: boolean, comm
 
                 if (showLog) { manager.append(stdoutBuf); }
                 console.log(stdoutBuf);
-               
+
             });
         }
         if ("on" in child.stderr) {
@@ -91,7 +106,7 @@ export const cmdSpawn = async function (manager: Manager, showLog: boolean, comm
                 if (showLog) { manager.append(stderrBuf, "error"); }
 
                 console.log(stderrBuf);
-            
+
             });
         }
 

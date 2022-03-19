@@ -3,27 +3,13 @@ import { Manager } from '../core';
 import { PKG, SDKManager, Command as SDKCommand } from '../cmd/SDKManager';
 import { Service } from './Service';
 import * as util from '../util';
+import { MsgType, showMsg, term, sendTerm } from '../ext_util';
 
 export class SDKService extends Service {
-    readonly sdkmanager: SDKManager;
+    private sdkmanager: SDKManager;
     constructor(manager: Manager) {
         super(manager);
         this.sdkmanager = new SDKManager(manager);
-    }
-
-    accepts() {
-        //let commandProp = this.sdkmanager.getCommand(SDKCommand.acceptLicenses);
-        //let cmd = this.sdkmanager.getCmd(commandProp);
-        console.log("accept license");
-        //
-
-
-        /*
-                let termObj = term("Accept SDK Licenses", cmd);
-                setTimeout(function () {
-                    termObj.sendText("y");
-                    if (commandProp.msg && commandProp.msg !== "") { showMsg(MsgType.info, commandProp.msg); }
-                }, 1500);*/
     }
 
     async getPkgs(noCache: boolean = false): Promise<PKG[] | undefined> {
@@ -73,5 +59,32 @@ export class SDKService extends Service {
         }
         return out;
     }
+
+
+
+    async acceptLicnese(sdkbin: string) {
+        let command = "echo y | {{exe}} --licenses";
+        let cmd = util.strformatNamed(command, { "exe": sdkbin });
+
+        let t = term("Accept SDK licenses", cmd);
+
+        let msg = "\n-------------------------------------\n\n";
+        msg += "All Licenses should be accepted. '";
+        msg += "\n";
+        msg += "Please close this terminal. '";
+        msg += "\n\n-------------------------------------\n";
+
+        return sendTerm(t, "y", "y", "y", "y", "y", "y", "y", "y", "y", "y", `echo "${msg}"`)
+            .then(() => {
+                showMsg(MsgType.info, "All Licenses should be accepted.");
+            });
+
+    };
+
+
+    async updateAllPkg() {
+        return this.sdkmanager.exec<string>(SDKCommand.updateAllPkg);
+    }
+
 
 }

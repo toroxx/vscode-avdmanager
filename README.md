@@ -34,25 +34,30 @@ AVD Details [Mouseover on the AVD name]
 
 ![img](image/README/1647306806230.png)
 
-### SDK Platforms
+### SDK Platforms / Tools
 
 Install packages (system-image, platforms, source-code)
 
 ![img](image/README/1647306155699.png)
 
-Accept SDK licenses [Gear Button]
-
-![img](image/README/1647306223521.png)
-
-### SDK Tools
-
 Install SDK Tools E.g. Build-tools, cmake, emulator, etc.
 
 ![img](image/README/1647538210189.png)
 
+Package Detail
+
+![](image/README/1647666693038.png)
+
+Accept All SDK licenses [Double Check icon Button]
+
+Update All SDK Package [Sync icon button]
+
+![](image/README/1647666810384.png)
+
+
 ### Emulator
 
-Launch AVD [Play Button]
+Launch AVD [Play icon Button]
 
 ![img](image/README/1647306185675.png)
 

@@ -36,11 +36,16 @@ export abstract class Executable {
 
     }
 
-    getCommand(name: string) {
+    getCommand(name: string): ICommandProp {
         return this.commands[name];
     }
 
     getCmd(prop: ICommandProp, ...params: string[]) {
+        if (prop.command === "") {
+            console.error("exec not found", prop);
+            return "";
+        }
+
         let cmd = (typeof prop.command === "string") ?
             prop.command :
             prop.command[this.manager.getPlatform()];

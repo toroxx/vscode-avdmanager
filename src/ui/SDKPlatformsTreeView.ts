@@ -18,7 +18,6 @@ export class SDKPlatformsTreeView {
         subscribe(context, [
             view,
 
-            vscode.commands.registerCommand('avdmanager.cmd-sdk-platforms-refresh', this.refresh),
             vscode.commands.registerCommand('avdmanager.sdk-platforms-refresh', this.refresh),
 
             vscode.commands.registerCommand("avdmanager.pkg-install", async (node) => {
@@ -149,7 +148,20 @@ class SDKPlatformsTreeItem extends vscode.TreeItem {
 
         this.label = pkg.description;
         this.description = installed ? "Installed" : "";
-        this.tooltip = pkg.pathRaw;
+
+
+        let infos = [
+            { name: "Path", value: pkg.pathRaw },
+            { name: "Location", value: pkg.location },
+            { name: "Version", value: pkg.version }
+        ];
+        let tooltip = "";
+        infos.forEach(element => {
+            if (element.value) {
+                tooltip += (tooltip.length === 0 ? "" : "\n") + `${element.name}: ${element.value}`;
+            }
+        });
+        this.tooltip = tooltip;
 
         let context = "sdk-pkg";
         if (installed) {

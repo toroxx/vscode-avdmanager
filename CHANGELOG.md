@@ -1,5 +1,13 @@
 # Android Virtual Device (AVD) Manager Change Log
 
+### 1.1.2
+
+* marge the cmd-* commands
+* new icon (check-all) for "Accept All SDK Licenses"
+* new feature Update All SDK Package
+* Add SDK Package detail View
+* Minor bug fix
+
 ### 1.1.1
 
 * Show emulator log on the output display

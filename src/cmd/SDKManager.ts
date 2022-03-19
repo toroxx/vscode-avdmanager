@@ -24,7 +24,7 @@ export interface PKG {
     category: string,
 }
 
-let commands: { [key in Command]?: ICommandProp } = {
+export let commands: { [key in Command]?: ICommandProp } = {
 
     [Command.installPkg]: {
         log: true,
@@ -39,7 +39,7 @@ let commands: { [key in Command]?: ICommandProp } = {
     [Command.acceptLicenses]: {
         log: true,
         command: {
-            window: `y | {{exe}} --licenses`,
+            window: `echo y | {{exe}} --licenses`,
             linux: `echo yes | {{exe}} --licenses`,
             macOS: `echo yes | {{exe}} --licenses`
         },
@@ -49,8 +49,9 @@ let commands: { [key in Command]?: ICommandProp } = {
     },
     [Command.updateAllPkg]: {
         log: true,
+        type: CommandType.spawn,
         command: {
-            window: `y |--update --channel=0`,
+            window: `echo y | {{exe}} --update --channel=0`,
             linux: `echo yes | {{exe}} --update --channel=0`,
             macOS: `echo yes | {{exe}} --update --channel=0`
         },

@@ -78,14 +78,14 @@ export class Manager {
         }
         return cacheObj.object;
     }
-    public setCache(key: string, value: any, expire: number = -1) {
+    public setCache(key: string, value: any, expire: number = 10) {
         let current: number = new Date().getTime();
         let time = expire;
         if (expire > -1) {
             time = current + expire * 1000;
         }
 
-        console.log("setCache", key, expire);
+        //console.log("setCache", key, expire);
         this.cache[key] = {
             object: value,
             expire: time

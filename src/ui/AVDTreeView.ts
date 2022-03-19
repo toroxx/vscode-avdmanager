@@ -17,7 +17,6 @@ export class AVDTreeView {
         subscribe(context, [
             view,
 
-            //vscode.commands.registerCommand('avdmanager.cmd-avd-create', this.create),
             vscode.commands.registerCommand('avdmanager.avd-create', async (node) => {
                 let path = node?.pkg?.pathRaw ?? undefined;
                 let name = node?.pkg?.description ?? undefined;
@@ -25,7 +24,6 @@ export class AVDTreeView {
             }),
 
 
-            vscode.commands.registerCommand('avdmanager.cmd-avdlist-refresh', this.refresh),
             vscode.commands.registerCommand('avdmanager.avdlist-refresh', this.refresh),
 
             vscode.commands.registerCommand('avdmanager.avd-launch', async (node) => {
@@ -207,7 +205,7 @@ export class AVDTreeItem extends vscode.TreeItem {
         ];
         let tooltip = "";
         infos.forEach(element => {
-            if (element.value){
+            if (element.value) {
                 tooltip += (tooltip.length === 0 ? "" : "\n") + `${element.name}: ${element.value}`;
             }
         });
