@@ -1,6 +1,7 @@
 # Android Virtual Device (AVD) Manager
 
 AVD Manager GUI for Visual Studio Code.
+
 Launch Android Emulator and manage SDK packages without touching the Android Studio😎
 
 See the [CHANGELOG](CHANGELOG.md) for the latest changes.
