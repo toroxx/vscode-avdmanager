@@ -30,24 +30,36 @@ export class Manager {
         return Manager.instance;
     }
 
+
     private constructor() {
         this.avd = new AVDService(this);
         this.sdk = new SDKService(this);
 
         this.output = window.createOutputChannel("AVD Manager");
     }
+
     readonly output: OutputChannel;
     readonly avd: AVDService;
     readonly sdk: SDKService;
 
+
+
     public append(msg: string, level: string = "info") {
-        let current = new Date();
-        this.output.appendLine(nodeUtil.format("[%s] %s", level, msg));
+        let o = msg;
+        if (msg === "") {
+            return;
+        }
+        
+        if (level === "error") {
+            o = nodeUtil.format("[ERR] %s", msg);
+        }
+
+        this.output.appendLine(o);
     }
 
     public appendTime() {
         let current = new Date();
-        this.output.appendLine(nodeUtil.format("Current %s", current));
+        this.output.appendLine(nodeUtil.format("\nCurrent: %s\n", current));
     }
     public clearOutput() {
         this.output.clear();
@@ -78,7 +90,7 @@ export class Manager {
         }
         return cacheObj.object;
     }
-    public setCache(key: string, value: any, expire: number = 10) {
+    public setCache(key: string, value: any, expire: number = 60) {
         let current: number = new Date().getTime();
         let time = expire;
         if (expire > -1) {
@@ -124,3 +136,5 @@ export class Manager {
 
 
 }
+
+

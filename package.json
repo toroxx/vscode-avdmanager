@@ -4,7 +4,7 @@
   "description": "Android Virtual Device Manager for VSCode",
   "publisher": "toroxx",
   "license": "MIT",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "author": {
     "name": "Lawrence Lau",
     "email": "m@psi.tv",
@@ -12,7 +12,6 @@
   },
   "icon": "resources/logo.png",
   "keywords": [
-    "torolab",
     "psi",
     "tx",
     "avd",
@@ -61,7 +60,7 @@
           "name": "SDK Tools",
           "contextualTitle": "Android - SDK Tools",
           "icon": "resources/icon.svg",
-          "visibility": "collapsed"
+          "visibility": "visible"
         }
       ]
     },
@@ -74,6 +73,35 @@
         }
       ]
     },
+    "colors": [
+      {
+        "id": "avdmanager.pkgFolderInstalled",
+        "description": "Color for folder with installed package.",
+        "defaults": {
+          "dark": "#090",
+          "light": "#090",
+          "highContrast": "#090"
+        }
+      },
+      {
+        "id": "avdmanager.pkgInstalled",
+        "description": "Color for installed package icon.",
+        "defaults": {
+          "dark": "#090",
+          "light": "#090",
+          "highContrast": "#090"
+        }
+      },
+      {
+        "id": "avdmanager.pkgNotInstall",
+        "description": "Color for not installed package icon.",
+        "defaults": {
+          "dark": "#999",
+          "light": "#999",
+          "highContrast": "#999"
+        }
+      }
+    ],
     "commands": [
       {
         "command": "avdmanager.avd-create",
@@ -123,16 +151,6 @@
       },
       {
         "command": "avdmanager.pkg-install",
-        "title": "Install",
-        "icon": "$(cloud-download)"
-      },
-      {
-        "command": "avdmanager.sdktool-pkg-uninstall",
-        "title": "Uninstall",
-        "icon": "$(trash)"
-      },
-      {
-        "command": "avdmanager.sdktool-pkg-install",
         "title": "Install",
         "icon": "$(cloud-download)"
       },
@@ -199,22 +217,12 @@
         },
         {
           "command": "avdmanager.pkg-install",
-          "when": "view == avdmanager-sdk-platforms && viewItem == sdk-pkg",
+          "when": "view =~ /^avdmanager-sdk/ && viewItem == sdk-pkg",
           "group": "inline@2"
         },
         {
           "command": "avdmanager.pkg-uninstall",
-          "when": "view == avdmanager-sdk-platforms && viewItem =~ /^sdk-pkg-installed/",
-          "group": "inline@2"
-        },
-        {
-          "command": "avdmanager.sdktool-pkg-uninstall",
-          "when": "view == avdmanager-sdk-tools && viewItem =~ /^sdktool-pkg-installed/",
-          "group": "inline@2"
-        },
-        {
-          "command": "avdmanager.sdktool-pkg-install",
-          "when": "view == avdmanager-sdk-tools && viewItem == sdktool-pkg",
+          "when": "view =~ /^avdmanager-sdk/ && viewItem =~ /^sdk-pkg-installed/",
           "group": "inline@2"
         }
       ]

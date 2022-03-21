@@ -1,10 +1,9 @@
 
 import * as vscode from 'vscode';
-import { PKG } from '../cmd/SDKManager';
 import { Manager } from '../core';
 import * as util from '../util';
 import { showYesNoQuickPick, subscribe, term } from '../ext_util';
-
+import { TreeItem, SDKTreeItem, SDKTreeRootItem } from './SDKTreeView';
 
 export class SDKToolsTreeView {
     readonly provider: SDKToolsTreeDataProvider;
@@ -16,45 +15,14 @@ export class SDKToolsTreeView {
             view,
             vscode.commands.registerCommand('avdmanager.sdk-tools-refresh', this.refresh),
 
-            vscode.commands.registerCommand("avdmanager.sdktool-pkg-install", async (node) => {
-                this.installPKGDiag(node.pkg.pathRaw ?? "", node.pkg.description ?? "");
-            }),
-            vscode.commands.registerCommand("avdmanager.sdktool-pkg-uninstall", async (node) => {
-                this.deletePKGDiag(node.pkg.pathRaw ?? "", node.pkg.description ?? "");
-            })
         ]);
 
     }
 
     refresh = async () => this.manager.sdk.getSDKList(true).then(() => this.provider.refresh());
 
-
-
-    async installPKGDiag(pkgname: string, displayName: string) {
-        if (pkgname === "") {
-            return;
-        }
-
-        await this.manager.sdk.installPKG(pkgname, displayName);
-
-        await vscode.commands.executeCommand("avdmanager.sdk-tools-refresh");
-
-    }
-    async deletePKGDiag(pkgname: string, displayName: string) {
-        if (pkgname === "") {
-            return;
-        }
-
-        const ans = await showYesNoQuickPick(`Are you sure to delete ${displayName}?`);
-        if (ans === "Yes" && pkgname) {
-            await this.manager.sdk.uninstallPkg(pkgname, displayName);
-        }
-        await vscode.commands.executeCommand("avdmanager.sdk-tools-refresh");
-    }
 }
 
-
-export type TreeItem = SDKToolsTreeItem | SDKToolsTreeRootItem;
 
 class SDKToolsTreeDataProvider implements vscode.TreeDataProvider<TreeItem> {
     constructor(private manager: Manager) {
@@ -87,11 +55,12 @@ class SDKToolsTreeDataProvider implements vscode.TreeDataProvider<TreeItem> {
             let tree = util.groupBy(filtered, "pkgname");
 
             if (element && element.contextValue === "sdk-pkg-root") {
-
-                let childs = tree[(element as SDKToolsTreeRootItem).pkgname]
+                const elm = (element as SDKTreeRootItem);
+                elm.opened();
+                let childs = tree[elm.pkgname]
                     .sort((a, b) => util.sort(a.description, b.description, true));
                 childs.map((item) => {
-                    list.push(new SDKToolsTreeItem(item, vscode.TreeItemCollapsibleState.None));
+                    list.push(new SDKTreeItem("tools", item, vscode.TreeItemCollapsibleState.None));
                 });
 
                 return list;
@@ -109,7 +78,7 @@ class SDKToolsTreeDataProvider implements vscode.TreeDataProvider<TreeItem> {
                         }
                         total++;
                     }
-                    list.push(new SDKToolsTreeRootItem(key, total, installed));
+                    list.push(new SDKTreeRootItem("tools", key, total, installed));
                 });
 
             return list;
@@ -123,67 +92,5 @@ class SDKToolsTreeDataProvider implements vscode.TreeDataProvider<TreeItem> {
 
     refresh(): void {
         this._onDidChangeTreeData.fire();
-    }
-}
-
-
-class SDKToolsTreeRootItem extends vscode.TreeItem {
-    constructor(public readonly pkgname: string, total: number, installed: number) {
-        super(pkgname.replace("android-", "Android "), vscode.TreeItemCollapsibleState.Collapsed);
-        const info = util.getApiLevelInfo(pkgname.replace("android-", ""));
-        if (info) {
-            this.label = `Android ${info.version}`;
-            if (info.code) {
-                this.label += ` (${info.code})`;
-            }
-        }
-        this.tooltip = pkgname;
-        this.contextValue = "sdk-pkg-root";
-        this.description = `${installed}/${total}`;
-        this.iconPath = new vscode.ThemeIcon('file-directory');
-    }
-}
-
-class SDKToolsTreeItem extends vscode.TreeItem {
-    constructor(
-        public readonly pkg: PKG,
-        public readonly collapsibleState: vscode.TreeItemCollapsibleState
-    ) {
-        super(pkg.pkgname, collapsibleState);
-
-        let installed = pkg.location ? true : false;
-
-        this.label = pkg.description;
-        this.description = installed ? "Installed" : "";
-        this.tooltip = pkg.pathRaw;
-
-        let infos = [
-            { name: "Path", value: pkg.pathRaw },
-            { name: "Location", value: pkg.location },
-            { name: "Version", value: pkg.version }
-        ];
-        let tooltip = "";
-        infos.forEach(element => {
-            if (element.value) {
-                tooltip += (tooltip.length === 0 ? "" : "\n") + `${element.name}: ${element.value}`;
-            }
-        });
-        this.tooltip = tooltip;
-
-
-        let context = "sdktool-pkg";
-        if (installed) {
-            context = "sdktool-pkg-installed";
-            if (pkg.category === "system-images") {
-                context = "sdktool-pkg-installed-img";
-            }
-        }
-        this.contextValue = context;
-
-        this.iconPath = new vscode.ThemeIcon(
-            installed ? 'check' : "primitive-square"
-        );
-
-
     }
 }

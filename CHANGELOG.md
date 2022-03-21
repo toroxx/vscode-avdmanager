@@ -1,5 +1,15 @@
 # Android Virtual Device (AVD) Manager Change Log
 
+### 1.1.3
+
+* SDK package icon with color
+  * `avdmanager.pkgFolderInstalled` (for folder with installed package)
+  * `avdmanager.pkgInstalled` (for installed package icon)
+  * `avdmanager.pkgNotInstall` (for not installed package icon)
+* marge the `avdmanager.pkg-install` and `avdmanager.pkg-uninstall` commands
+* emulator logs display enhanced
+* Minor bug fix
+
 ### 1.1.2
 
 * marge the cmd-* commands

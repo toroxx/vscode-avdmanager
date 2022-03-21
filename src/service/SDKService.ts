@@ -1,9 +1,11 @@
-
+import * as vscode from 'vscode';
 import { Manager } from '../core';
 import { PKG, SDKManager, Command as SDKCommand } from '../cmd/SDKManager';
 import { Service } from './Service';
 import * as util from '../util';
-import { MsgType, showMsg, term, sendTerm } from '../ext_util';
+import { showYesNoQuickPick, MsgType, showMsg, term, sendTerm } from '../ext_util';
+import * as sdkTreeView from '../ui/SDKTreeView';
+
 
 export class SDKService extends Service {
     private sdkmanager: SDKManager;
@@ -87,4 +89,34 @@ export class SDKService extends Service {
     }
 
 
+    async pkgInstall(node: sdkTreeView.SDKTreeItem) {
+        let type = node.type ?? "", pkgname = node.pkg.pathRaw ?? "", displayName = node.pkg.description ?? "";
+        console.log("pkg-install", type, pkgname, displayName);
+        if (pkgname === "") {
+            return;
+        }
+        await this.manager.sdk.installPKG(pkgname, displayName);
+
+        const types = ["platforms", "tools"];
+        if (types.includes(type)) {
+            await vscode.commands.executeCommand("avdmanager.sdk-" + type + "-refresh");
+        }
+    }
+
+    async pkgUnInstall(node: sdkTreeView.SDKTreeItem) {
+        let type = node.type ?? "", pkgname = node.pkg.pathRaw ?? "", displayName = node.pkg.description ?? "";
+        console.log("pkg-uninstall", type, pkgname, displayName);
+        if (pkgname === "") {
+            return;
+        }
+        const ans = await showYesNoQuickPick(`Are you sure to delete ${displayName}?`);
+        if (ans === "Yes" && pkgname) {
+            await this.manager.sdk.uninstallPkg(pkgname, displayName);
+        }
+
+        const types = ["platforms", "tools"];
+        if (types.includes(type)) {
+            await vscode.commands.executeCommand("avdmanager.sdk-" + type + "-refresh");
+        }
+    }
 }

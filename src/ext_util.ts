@@ -81,55 +81,76 @@ export const cmdSpawn = async function (manager: Manager, showLog: boolean, comm
     return new Promise((resolve, reject) => {
         let child = child_process.spawn(command, { shell: true });
 
-        let stdout = "";
-        let stderr = "";
+        let stdout = new StrBuffer();
+        let stderr = new StrBuffer();
         if ("on" in child.stdout) {
             child.stdout.on('data', (data) => {
-                let stdoutBuf = Buffer.from(data).toString();
-                if (stdoutBuf === "") {
+                let buf = Buffer.from(data).toString();
+                if (buf === "") {
                     return;
                 }
-                stdout += stdoutBuf;
+                stdout.append(buf);
+                console.log(buf, stdout.count(), stdout.getArray());
 
-                if (showLog) { manager.append(stdoutBuf); }
-                console.log(stdoutBuf);
+                if (showLog) {
+                    while (stdout.count() > 1) {
+                        let next = stdout.next();
+                        if (next) {
+                            manager.append(next);
+                        }
+                    }
+                }
+
 
             });
         }
         if ("on" in child.stderr) {
             child.stderr.on('data', (data) => {
-                let stderrBuf = Buffer.from(data).toString();
-                if (stderrBuf === "") {
+                let buf = Buffer.from(data).toString();
+                if (buf === "") {
                     return;
                 }
-                stderr += stderrBuf;
-                if (showLog) { manager.append(stderrBuf, "error"); }
+                stderr.append(buf);
+                console.log(buf, stderr.count(), stderr.getArray());
+                if (showLog) {
+                    while (stderr.count() > 1) {
+                        let next = stderr.next();
+                        if (next) {
+                            manager.append(next, "error");
+                        }
+                    }
+                }
 
-                console.log(stderrBuf);
 
             });
         }
 
         child.on("error", (code) => {
             console.log("CMD Spawn - fail");
+            if (showLog) {
+                manager.append(stdout.getBufferAll());
+                manager.append(stderr.getBufferAll(), "error");
+
+            }
             if (failure && failure !== "") { showMsg(MsgType.error, failure + ", Error: " + code); }
-            reject(stderr);
+            reject(stderr.getAll());
 
         });
         child.on("close", (code) => {
+            if (showLog) {
+                manager.append(stdout.getBufferAll());
+                manager.append(stderr.getBufferAll(), "error");
+            }
             console.log("CMD Spawn - end: " + code);
             manager.appendTime();
             if (code && code !== 0) {
-                if (showLog) {
-                    manager.append(stderr, "error");
-                }
 
                 if (failure && failure !== "") { showMsg(MsgType.error, failure + ", Error: " + code); }
-                reject(stderr);
+                reject(stderr.getAll());
                 return;
             }
             if (success && success !== "") { showMsg(MsgType.info, success); }
-            setTimeout(() => { resolve(stdout); }, success ? 1500 : 0);
+            setTimeout(() => { resolve(stdout.getAll()); }, success ? 1500 : 0);
         });
     });
 };
@@ -265,3 +286,42 @@ export async function showYesNoQuickPick(placeHolder: string) {
     });
 }
 
+
+
+class StrBuffer {
+    private buffer: string = "";
+    private bufferAll: string = "";
+    constructor() {
+        this.buffer = "";
+        this.bufferAll = "";
+    }
+
+    append(str: string) {
+        this.buffer += str;
+        this.bufferAll += str;
+        console.log(this.buffer);
+    }
+
+    getArray() {
+        return this.buffer.split(/\n|\r/);
+    }
+    count() {
+        return this.getArray().length;
+    }
+
+    next() {
+        let arr = this.getArray();
+
+        let firstline = arr.shift();
+
+        this.buffer = arr.length === 0 ? "" : arr.join("\n");
+
+        return firstline;
+    }
+    getBufferAll() {
+        return this.buffer;
+    }
+    getAll() {
+        return this.bufferAll;
+    }
+}
