@@ -134,7 +134,7 @@ Emulator Log
 
 ## Links
 
-- [GitHub](https://github.com/toroxx/vscode-avdmanage) ([Issues](https://github.com/toroxx/vscode-avdmanage/issues) | [Releases](https://github.com/toroxx/vscode-avdmanage/releases))
+- [GitHub](https://github.com/toroxx/vscode-avdmanager) ([Issues](https://github.com/toroxx/vscode-avdmanager/issues) | [Releases](https://github.com/toroxx/vscode-avdmanager/releases))
 - VSCode Marketplace
   [https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager](https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager)
 - Open-VSX
