@@ -1,3 +1,8 @@
+[![GitHub package version](https://img.shields.io/github/v/release/toroxx/vscode-avdmanager?include_prereleases&label=GitHub%20version)](https://github.com/SchoofsKelvin/vscode-sshfs)
+[![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/toroxx.vscode-avdmanager?label=VS%20Marketplace&logo=sdf)](https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager)
+[![OpenVSX Registry](https://img.shields.io/open-vsx/v/toroxx/vscode-avdmanager?label=Open%20VSX)](https://open-vsx.org/extension/toroxx/vscode-avdmanager)
+[![VS Market installs](https://img.shields.io/visual-studio-marketplace/i/toroxx.vscode-avdmanager?color=green&label=Installs)](https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager)
+
 # Android Virtual Device (AVD) Manager
 
 AVD Manager GUI for Visual Studio Code.
@@ -6,14 +11,9 @@ Launch Android Emulator and manage SDK packages without touching the Android Stu
 
 See the [CHANGELOG](CHANGELOG.md) for the latest changes.
 
+Also, welcome to open the issue any about this extension.
+
 inspired by [oognuyh/vscode-android-emulator-helper](https://github.com/oognuyh/vscode-android-emulator-helper)
-
-## Install
-
-- VSCode Marketplace
-  [https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager](https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager)
-- Open-VSX
-  [https://open-vsx.org/extension/toroxx/vscode-avdmanager](https://open-vsx.org/extension/toroxx/vscode-avdmanager)
 
 ## Features
 
@@ -131,3 +131,11 @@ Launch AVD [Play icon Button]
 Emulator Log
 
 ![](image/README/1647845143589.png)
+
+## Links
+
+- [GitHub](https://github.com/toroxx/vscode-avdmanage) ([Issues](https://github.com/toroxx/vscode-avdmanage/issues) | [Releases](https://github.com/toroxx/vscode-avdmanage/releases))
+- VSCode Marketplace
+  [https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager](https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager)
+- Open-VSX
+  [https://open-vsx.org/extension/toroxx/vscode-avdmanager](https://open-vsx.org/extension/toroxx/vscode-avdmanager)
