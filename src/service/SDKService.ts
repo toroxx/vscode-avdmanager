@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { Manager } from '../core';
 import { PKG, SDKManager, Command as SDKCommand } from '../cmd/SDKManager';
 import { Service } from './Service';
-import * as util from '../util';
+import * as util from '../module/util';
 import { term, sendTerm } from '../module/cmd';
 import { showYesNoQuickPick, MsgType, showMsg } from '../module/ui';
 import * as sdkTreeView from '../ui/SDKTreeView';

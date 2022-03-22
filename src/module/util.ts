@@ -1,3 +1,7 @@
+import * as fs from "fs";
+export function checkPathExists(filepath: string) {
+    return fs.existsSync(filepath);
+}
 
 export function strformat(str: string, ...params: string[]): string {
     let out = str;
@@ -49,7 +53,7 @@ export function groupBy<T, K extends keyof T>(items: T[], key: K): { [key: strin
     return out;
 }
 
-import * as langApiLevel from "./lang/api_level.json";
+import * as langApiLevel from "../lang/api_level.json";
 interface LangApiLevel {
     level: string;
     code?: string;

@@ -1,6 +1,6 @@
 import * as ModuleCmd from "../module/cmd";
 import { Manager } from "../core";
-import * as util from "../util";
+import * as util from "../module/util";
 
 
 export interface ICommandPathform {

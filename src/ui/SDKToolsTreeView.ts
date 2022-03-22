@@ -1,7 +1,7 @@
 
 import * as vscode from 'vscode';
 import { Manager } from '../core';
-import * as util from '../util';
+import * as util from '../module/util';
 import { subscribe } from '../module/';
 
 import { TreeItem, SDKTreeItem, SDKTreeRootItem } from './SDKTreeView';

@@ -3,6 +3,7 @@ import { Manager } from "../core";
 import { Service } from "./Service";
 
 import { MsgType, showYesNoMsg } from '../module/ui';
+import { checkPathExists } from "../module/util";
 
 export class AndroidService extends Service {
     constructor(protected manager: Manager) {
@@ -11,12 +12,31 @@ export class AndroidService extends Service {
     }
 
     public initCheck() {
+
+
+        let config = this.getConfig();
+        let sdkPathLookup = this.sdkPathLookup();
+        if (sdkPathLookup === -1) {
+            showYesNoMsg(MsgType.warning, "SDK Root Path Not found!");
+        }
+
+        this.manager.output.append("SDK Root Path:            " + config.sdkPath);
+        this.manager.output.append("SDK Command-Line Tools:   " + config.cmdPath);
+        this.manager.output.append("SDK Build Tools:          " + config.buildToolPath);
+        this.manager.output.append("SDK Platform Tools:       " + config.platformToolsPath);
+        this.manager.output.append("Emulator Path:            " + config.emuPath);
+
         this.manager.output.show();
-        showYesNoMsg(MsgType.warning, "SDK Root Path Not found!");
-        this.manager.output.append("SDK Root Path:            " + this.getConfig().sdkPath);
-        this.manager.output.append("SDK Command-Line Tools:   " + this.getConfig().cmdPath);
-        this.manager.output.append("SDK Build Tools:          " + this.getConfig().buildToolPath);
-        this.manager.output.append("SDK Platform Tools:       " + this.getConfig().platformToolsPath);
-        this.manager.output.append("Emulator Path:            " + this.getConfig().emuPath);
+    }
+
+    public sdkPathLookup(): number {
+        let config = this.getConfig();
+        if (config.sdkPath !== "" && !checkPathExists(config.sdkPath)) {
+            return -1; //SDK path not exists
+        }
+
+
+
+        return 0;
     }
 }

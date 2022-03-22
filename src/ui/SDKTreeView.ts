@@ -1,7 +1,7 @@
 
 
 import * as vscode from 'vscode';
-import * as util from '../util';
+import * as util from '../module/util';
 import { PKG } from '../cmd/SDKManager';
 
 export type TreeItem = SDKTreeItem | SDKTreeRootItem;
