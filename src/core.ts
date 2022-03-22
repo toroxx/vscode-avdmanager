@@ -7,6 +7,7 @@ import { AndroidService } from './service/AndroidService';
 import * as Module from "./module";
 import { Output } from "./module/ui";
 import { Cache } from "./module/cache";
+import { Platform } from "module/platform";
 
 export interface IConfig {
     /** PATHS */
