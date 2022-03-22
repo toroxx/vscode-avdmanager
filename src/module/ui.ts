@@ -7,16 +7,8 @@ export enum MsgType {
     info, warning, error
 }
 
-export function showMsg(type: MsgType, message: string, ...items: string[]) {
-    switch (type) {
-        case MsgType.error:
-            return window.showErrorMessage(message, ...items);
-        case MsgType.warning:
-            return window.showWarningMessage(message, ...items);
-    }
-    return window.showInformationMessage(message, ...items);
-}
-export function showMsgWithOptions(type: MsgType, message: string, options: MessageOptions, ...items: string[]) {
+
+export function showMsg(type: MsgType, message: string, options: MessageOptions = {}, ...items: string[]) {
     switch (type) {
         case MsgType.error:
             return window.showErrorMessage(message, options, ...items);
@@ -26,8 +18,14 @@ export function showMsgWithOptions(type: MsgType, message: string, options: Mess
     return window.showInformationMessage(message, options, ...items);
 }
 
-export function showYesNoMsg(type: MsgType, message: string) {
-    return showMsg(type, message, "Yes", "No");
+export function showYesNoMsg(type: MsgType, message: string, options: MessageOptions = {}) {
+    return showMsg(type, message, options, "Yes", "No");
+}
+export function showYesNoCancelMsg(type: MsgType, message: string, options: MessageOptions = {}) {
+    return showMsg(type, message, options, "Yes", "No", "Cancel");
+}
+export function showOkCancelMsg(type: MsgType, message: string, options: MessageOptions = {}) {
+    return showMsg(type, message, options, "OK", "Cancel");
 }
 
 
