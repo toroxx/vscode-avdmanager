@@ -4,7 +4,7 @@
   "description": "Android Virtual Device Manager for VSCode",
   "publisher": "toroxx",
   "license": "MIT",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "author": {
     "name": "Lawrence Lau",
     "email": "m@psi.tv",
@@ -231,26 +231,38 @@
       "title": "AVD Manager",
       "type": "object",
       "properties": {
+        "avdmanager.sdkPath": {
+          "title": "Android SDK Root Path",
+          "type": "string",
+          "default": "",
+          "description": "Android SDK Root Path.\nWindows %LOCALAPPDATA%\\Android\\sdk or C:\\Android\\sdk\nLinux ~/Android/Sdk\nMac ~/Library/Android/sdk"
+        },
+        "avdmanager.cmdVersion": {
+          "title": "Android Command-Line Tools Version",
+          "type": "string",
+          "default": "latest",
+          "description": "Android SDK Command-Line Tools Version"
+        },
         "avdmanager.executable": {
-          "title": "AVD Manager executable path",
+          "title": "AVD Manager executable (optional)",
           "type": "string",
           "default": "avdmanager",
           "description": "AVD Manager executable path"
         },
         "avdmanager.sdkManager": {
-          "title": "Android SDK Manager executable path",
+          "title": "Android SDK Manager executable (optional)",
           "type": "string",
           "default": "sdkManager",
           "description": "Android SDK Manager executable path"
         },
         "avdmanager.emulator": {
-          "title": "Android emulator executable path",
+          "title": "Android Emulator executable (optional)",
           "type": "string",
           "default": "emulator",
-          "description": "Android emulator executable path"
+          "description": "Android Emulator executable path"
         },
         "avdmanager.emulatorOpt": {
-          "title": "Android emulator options",
+          "title": "Android emulator options (optional)",
           "type": "string",
           "default": "",
           "markdownDescription": "Android emulator options. [Start the emulator from the command line](https://developer.android.com/studio/run/emulator-commandline)"
