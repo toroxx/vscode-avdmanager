@@ -1,4 +1,4 @@
-import { Cache } from "./cache";
+
 import { workspace, ExtensionContext } from 'vscode';
 
 const rootPath =
@@ -13,5 +13,5 @@ function subscribe(context: ExtensionContext, items: Array<any>) {
 
 
 export {
-    Cache, rootPath, subscribe
+    rootPath, subscribe
 };

@@ -6,6 +6,7 @@ import { SDKService } from './service/SDKService';
 import { AndroidService } from './service/AndroidService';
 import * as Module from "./module";
 import { Output } from "./module/ui";
+import { Cache } from "./module/cache";
 
 export interface IConfig {
     /** PATHS */
@@ -25,11 +26,6 @@ export interface IConfig {
     emulatorOpt?: string
 }
 
-export enum Platform {
-    linux = "linux",
-    window = "window",
-    macOS = "macOS",
-}
 
 
 
@@ -46,10 +42,10 @@ export class Manager {
     readonly sdk: SDKService;
     readonly android: AndroidService;
     readonly output: Output;
-    readonly cache: Module.Cache;
+    readonly cache: Cache;
 
     private constructor() {
-        this.cache = new Module.Cache();
+        this.cache = new Cache();
         this.avd = new AVDService(this);
         this.sdk = new SDKService(this);
         this.android = new AndroidService(this);
