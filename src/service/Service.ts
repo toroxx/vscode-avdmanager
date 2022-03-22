@@ -4,10 +4,10 @@ export abstract class Service {
     constructor(protected manager: Manager) { }
 
     protected getCache(key: string) {
-        return this.manager.getCache(key);
+        return this.manager.cache.get(key);
     }
     protected setCache(key: string, value: any, expire?: number) {
-        this.manager.setCache(key, value, expire);
+        this.manager.cache.set(key, value, expire);
     }
 
     protected getConfig(): IConfig {

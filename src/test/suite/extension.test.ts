@@ -17,7 +17,7 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual(1, 1);
 	});
 
-	test("cache test", () => {
+	/*test("cache test", () => {
 		assert.strictEqual(1, manager.getCache("a"));
-	});
+	});*/
 });

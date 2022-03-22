@@ -14,7 +14,7 @@ export class AVDService extends Service {
 
 
     async getAVDList(noCache: boolean = false) {
-        let out = this.manager.getCache("getAVDList");
+        let out = this.getCache("getAVDList");
         if (!out || noCache) {
             out = this.avdmanager.exec<AVD>(avdcommand.listAvd);
             this.setCache("getAVDList", out);

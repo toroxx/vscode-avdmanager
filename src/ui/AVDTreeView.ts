@@ -2,7 +2,9 @@
 import * as vscode from 'vscode';
 import { AVD } from '../cmd/AVDManager';
 import { Manager } from '../core';
-import { subscribe, showMsg, showQuickPick, MsgType, showYesNoQuickPick } from '../ext_util';
+import { showMsg, showQuickPick, MsgType, showYesNoQuickPick } from '../module/ui';
+
+import { subscribe } from '../module/';
 import { AVDQuickPickItem } from './AVDQuickPick';
 
 

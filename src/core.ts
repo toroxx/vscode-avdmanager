@@ -1,13 +1,28 @@
-import * as nodeUtil from "util";
-import { workspace, Disposable, window, OutputChannel } from 'vscode';
+import * as path from "path";
+import * as config from "./config";
+import { workspace, Disposable } from 'vscode';
 import { AVDService } from './service/AVDService';
 import { SDKService } from './service/SDKService';
+import { AndroidService } from './service/AndroidService';
+import * as Module from "./module";
+import { Output } from "./module/ui";
 
 export interface IConfig {
+    /** PATHS */
+    sdkPath: string
+    cmdPath: string
+    buildToolPath: string
+    platformToolsPath: string
+    emuPath: string
+
+    /** exe */
+    cmdVersion: string
     executable?: string
     emulator?: string
-    emulatorOpt?: string
     sdkManager?: string
+
+    /** opts */
+    emulatorOpt?: string
 }
 
 export enum Platform {
@@ -16,10 +31,7 @@ export enum Platform {
     macOS = "macOS",
 }
 
-export interface CacheItem {
-    object: any,
-    expire: number
-}
+
 
 export class Manager {
     private static instance: Manager;
@@ -30,89 +42,43 @@ export class Manager {
         return Manager.instance;
     }
 
-
-    private constructor() {
-        this.avd = new AVDService(this);
-        this.sdk = new SDKService(this);
-
-        this.output = window.createOutputChannel("AVD Manager");
-    }
-
-    readonly output: OutputChannel;
     readonly avd: AVDService;
     readonly sdk: SDKService;
+    readonly android: AndroidService;
+    readonly output: Output;
+    readonly cache: Module.Cache;
 
+    private constructor() {
+        this.cache = new Module.Cache();
+        this.avd = new AVDService(this);
+        this.sdk = new SDKService(this);
+        this.android = new AndroidService(this);
 
-
-    public append(msg: string, level: string = "info") {
-        let o = msg;
-        if (msg === "") {
-            return;
-        }
-        
-        if (level === "error") {
-            o = nodeUtil.format("[ERR] %s", msg);
-        }
-
-        this.output.appendLine(o);
+        this.output = new Output("AVD Manager");
     }
 
-    public appendTime() {
-        let current = new Date();
-        this.output.appendLine(nodeUtil.format("\nCurrent: %s\n", current));
-    }
-    public clearOutput() {
-        this.output.clear();
-    }
-
-    public showOutput() {
-        this.output.show(true);
-    }
-    public hideOutput() {
-        this.output.hide();
-    }
-
-    private cache: { [key: string]: CacheItem } = {};
-    public getCache(key: string, autoClean: boolean = false) {
-        let cacheObj = this.cache[key] ?? false;
-        if (!cacheObj) {
-            return false;
-        }
-
-        let current = new Date().getTime();
-        console.log("getCache: check expire", key, current, cacheObj.expire, current - cacheObj.expire);
-        if (cacheObj.expire !== -1 && current > cacheObj.expire) {
-            return false;
-        }
-
-        if (autoClean) {
-            this.cache[key].expire = current - 1;
-        }
-        return cacheObj.object;
-    }
-    public setCache(key: string, value: any, expire: number = 60) {
-        let current: number = new Date().getTime();
-        let time = expire;
-        if (expire > -1) {
-            time = current + expire * 1000;
-        }
-
-        //console.log("setCache", key, expire);
-        this.cache[key] = {
-            object: value,
-            expire: time
-        };
-    }
 
     public getConfig(): IConfig {
         let config = workspace.getConfiguration('avdmanager');
+        let sdkPath = config.get<string>("sdkPath", "avdmanager");
+        let cmdVersion = config.get<string>("cmdVersion", "avdmanager");
+        let cmdPath = path.join(sdkPath, "cmdline-tools", cmdVersion, "bin");
+
         return {
+            sdkPath: sdkPath,
+            cmdPath: cmdPath,
+            buildToolPath: path.join(sdkPath, "build-tools"),
+            platformToolsPath: path.join(sdkPath, "platform-tools"),
+            emuPath: path.join(sdkPath, "emulator"),
+
+            cmdVersion: cmdVersion,
             executable: config.get<string>("executable", "avdmanager"),
             emulator: config.get<string>("emulator", "emulator"),
             emulatorOpt: config.get<string>("emulatorOpt", ""),
             sdkManager: config.get<string>("sdkManager", "sdkManager")
         };
     }
+
     public getPlatform() {
         switch (process.platform) {
             case 'linux':

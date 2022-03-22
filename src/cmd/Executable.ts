@@ -1,4 +1,4 @@
-import * as ext_util from "../ext_util";
+import * as ModuleCmd from "../module/cmd";
 import { Manager } from "../core";
 import * as util from "../util";
 
@@ -13,6 +13,7 @@ export enum CommandType {
     runOnly,
     progress,
     spawn,
+    spawnSync,
 }
 
 export interface ICommandProp {
@@ -68,9 +69,9 @@ export abstract class Executable {
 
         let showLog = prop.log || false;
         if (showLog) {
-            this.manager.showOutput();
-            this.manager.appendTime();
-            this.manager.append("exec: " + cmd);
+            this.manager.output.show();
+            this.manager.output.appendTime();
+            this.manager.output.append("exec: " + cmd);
         }
 
         console.log("exec:", cmd);
@@ -78,10 +79,10 @@ export abstract class Executable {
         const exectype = prop.type ?? CommandType.progress;
 
         const exec = {
-            [CommandType.runOnly]: ext_util.cmdWithMsg,
-            [CommandType.progress]: ext_util.cmdWithProgress,
-            [CommandType.spawn]: ext_util.cmdSpawn,
-            // [CommandType.spawnSync]: ext_util.cmdSpawnSync,
+            [CommandType.runOnly]: ModuleCmd.execWithMsg,
+            [CommandType.progress]: ModuleCmd.execWithProgress,
+            [CommandType.spawn]: ModuleCmd.spawn,
+            [CommandType.spawnSync]: ModuleCmd.spawnSync,
         };
         let next = exec[exectype](this.manager, showLog, cmd, msg, successMsg, failureMsg);
         return next.then((out) => (typeof prop.parser === "function") ? prop.parser(out) : out);

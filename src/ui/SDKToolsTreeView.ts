@@ -2,7 +2,8 @@
 import * as vscode from 'vscode';
 import { Manager } from '../core';
 import * as util from '../util';
-import { showYesNoQuickPick, subscribe, term } from '../ext_util';
+import { subscribe } from '../module/';
+
 import { TreeItem, SDKTreeItem, SDKTreeRootItem } from './SDKTreeView';
 
 export class SDKToolsTreeView {

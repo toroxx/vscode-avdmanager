@@ -1,44 +1,7 @@
 import * as child_process from "child_process";
-import {
-    workspace, ExtensionContext, MessageOptions, window,
-    ProgressLocation, QuickPickOptions, QuickPickItem, Terminal
-} from 'vscode';
-import { Manager } from "./core";
-
-export enum MsgType {
-    info, warning, error
-}
-
-
-
-export const rootPath =
-    workspace.workspaceFolders && workspace.workspaceFolders.length > 0
-        ? workspace.workspaceFolders[0].uri.fsPath
-        : undefined;
-
-export function subscribe(context: ExtensionContext, items: Array<any>) {
-    context.subscriptions.push(...items);
-}
-
-
-export function showMsg(type: MsgType, message: string, ...items: string[]) {
-    switch (type) {
-        case MsgType.error:
-            return window.showErrorMessage(message, ...items);
-        case MsgType.warning:
-            return window.showWarningMessage(message, ...items);
-    }
-    return window.showInformationMessage(message, ...items);
-}
-export function showMsgWithOptions(type: MsgType, message: string, options: MessageOptions, ...items: string[]) {
-    switch (type) {
-        case MsgType.error:
-            return window.showErrorMessage(message, options, ...items);
-        case MsgType.warning:
-            return window.showWarningMessage(message, options, ...items);
-    }
-    return window.showInformationMessage(message, options, ...items);
-}
+import { showMsg, MsgType } from "./ui";
+import { window, ProgressLocation, Terminal } from 'vscode';
+import { Manager } from "../core";
 
 export const exec = async function (manager: Manager, command: string, willLoad: Function, didLoad: Function) {
     willLoad();
@@ -72,10 +35,11 @@ export const sendTerm = function (term: Terminal, ...msg: string[]) {
 };
 
 
-export const cmdSpawn = async function (manager: Manager, showLog: boolean, command: string, willLoadMsg?: string, success?: string, failure?: string) {
+
+export const spawn = async function (manager: Manager, showLog: boolean, command: string, willLoadMsg?: string, success?: string, failure?: string) {
 
     console.log("CMD Spawn");
-    if (showLog) { manager.appendTime(); }
+    if (showLog) { manager.output.appendTime(); }
 
     if (willLoadMsg && willLoadMsg !== "") { showMsg(MsgType.info, willLoadMsg); };
     return new Promise((resolve, reject) => {
@@ -96,7 +60,7 @@ export const cmdSpawn = async function (manager: Manager, showLog: boolean, comm
                     while (stdout.count() > 1) {
                         let next = stdout.next();
                         if (next) {
-                            manager.append(next);
+                            manager.output.append(next);
                         }
                     }
                 }
@@ -116,7 +80,7 @@ export const cmdSpawn = async function (manager: Manager, showLog: boolean, comm
                     while (stderr.count() > 1) {
                         let next = stderr.next();
                         if (next) {
-                            manager.append(next, "error");
+                            manager.output.append(next, "error");
                         }
                     }
                 }
@@ -128,8 +92,8 @@ export const cmdSpawn = async function (manager: Manager, showLog: boolean, comm
         child.on("error", (code) => {
             console.log("CMD Spawn - fail");
             if (showLog) {
-                manager.append(stdout.getBufferAll());
-                manager.append(stderr.getBufferAll(), "error");
+                manager.output.append(stdout.getBufferAll());
+                manager.output.append(stderr.getBufferAll(), "error");
 
             }
             if (failure && failure !== "") { showMsg(MsgType.error, failure + ", Error: " + code); }
@@ -138,11 +102,11 @@ export const cmdSpawn = async function (manager: Manager, showLog: boolean, comm
         });
         child.on("close", (code) => {
             if (showLog) {
-                manager.append(stdout.getBufferAll());
-                manager.append(stderr.getBufferAll(), "error");
+                manager.output.append(stdout.getBufferAll());
+                manager.output.append(stderr.getBufferAll(), "error");
             }
             console.log("CMD Spawn - end: " + code);
-            manager.appendTime();
+            manager.output.appendTime();
             if (code && code !== 0) {
 
                 if (failure && failure !== "") { showMsg(MsgType.error, failure + ", Error: " + code); }
@@ -154,10 +118,10 @@ export const cmdSpawn = async function (manager: Manager, showLog: boolean, comm
         });
     });
 };
-export const cmdSpawnSync = async function (manager: Manager, showLog: boolean, command: string, willLoadMsg?: string, success?: string, failure?: string) {
+export const spawnSync = async function (manager: Manager, showLog: boolean, command: string, willLoadMsg?: string, success?: string, failure?: string) {
     const { spawnSync } = require("child_process");
     console.log("CMD SpawnSync");
-    if (showLog) { manager.appendTime(); }
+    if (showLog) { manager.output.appendTime(); }
 
     if (willLoadMsg && willLoadMsg !== "") { showMsg(MsgType.info, willLoadMsg); };
     return new Promise((resolve, reject) => {
@@ -168,15 +132,15 @@ export const cmdSpawnSync = async function (manager: Manager, showLog: boolean, 
         console.log(result);
 
         if (showLog) {
-            //manager.append("Status: " + (result.status ?? ""));
-            manager.appendTime();
+            //manager.output.append("Status: " + (result.status ?? ""));
+            manager.output.appendTime();
         }
 
         let stdout = result.stdout + "";
         if (result.status && result.status !== 0) {
             let stderr = result.stderr + "";
             if (showLog) {
-                manager.append(stderr, "error");
+                manager.output.append(stderr, "error");
             }
 
             console.error(stderr);
@@ -186,30 +150,29 @@ export const cmdSpawnSync = async function (manager: Manager, showLog: boolean, 
             return;
         }
 
-        if (showLog) { manager.append(stdout); }
+        if (showLog) { manager.output.append(stdout); }
         if (success && success !== "") { showMsg(MsgType.info, success); }
         setTimeout(() => { resolve(stdout); }, success ? 1500 : 0);
     });
 };
-
-export const cmdWithMsg = async function (manager: Manager, showLog: boolean, command: string, willLoadMsg?: string, success?: string, failure?: string) {
+export const execWithMsg = async function (manager: Manager, showLog: boolean, command: string, willLoadMsg?: string, success?: string, failure?: string) {
     console.log("CMD MSG");
     return new Promise((resolve, reject) => {
 
         exec(manager, command,
             () => { if (willLoadMsg && willLoadMsg !== "") { showMsg(MsgType.info, willLoadMsg); } },
             (error: any, stdout: string, stderr: string) => {
-                if (showLog) { manager.appendTime(); }
+                if (showLog) { manager.output.appendTime(); }
 
                 if (error) {
-                    if (showLog) { manager.append(stderr, "error"); }
+                    if (showLog) { manager.output.append(stderr, "error"); }
 
                     console.error(stderr);
                     if (failure && failure !== "") { showMsg(MsgType.error, failure + "\n" + stderr); }
                     reject(stderr);
                     return;
                 }
-                if (showLog) { manager.append(stdout); }
+                if (showLog) { manager.output.append(stdout); }
 
                 if (success && success !== "") { showMsg(MsgType.info, success); }
                 setTimeout(() => { resolve(stdout); }, success ? 1500 : 0);
@@ -217,7 +180,7 @@ export const cmdWithMsg = async function (manager: Manager, showLog: boolean, co
     });
 };
 
-export const cmdWithProgress = async function (manager: Manager, showLog: boolean, command: string, willLoadMsg?: string, success?: string, failure?: string) {
+export const execWithProgress = async function (manager: Manager, showLog: boolean, command: string, willLoadMsg?: string, success?: string, failure?: string) {
     console.log("CMD Progress");
     return window.withProgress(
         { location: ProgressLocation.Notification, },
@@ -232,10 +195,10 @@ export const cmdWithProgress = async function (manager: Manager, showLog: boolea
                     });
                 },
                 didLoad: (error: any, stdout: string, stderr: string) => {
-                    if (showLog) { manager.appendTime(); }
+                    if (showLog) { manager.output.appendTime(); }
                     if (error) {
 
-                        if (showLog) { manager.append(stderr, "error"); }
+                        if (showLog) { manager.output.append(stderr, "error"); }
 
                         console.error(stderr);
                         if (failure && failure !== "") { showMsg(MsgType.error, failure + "\n" + stderr); }
@@ -244,7 +207,7 @@ export const cmdWithProgress = async function (manager: Manager, showLog: boolea
                     }
 
                     clearInterval(interval);
-                    if (showLog) { manager.append(stdout); }
+                    if (showLog) { manager.output.append(stdout); }
                     if (success && success !== "") { progress.report({ message: success, }); }
                     setTimeout(() => { resolve(stdout); }, success ? 1500 : 0);
                 }
@@ -253,38 +216,6 @@ export const cmdWithProgress = async function (manager: Manager, showLog: boolea
         })
     );
 };
-
-
-
-export async function showQuickPick(
-    items: Promise<QuickPickItem[] | undefined>,
-    quickPickOption: QuickPickOptions,
-    msglistEmpty: string,
-    msgNotSelected: string): Promise<QuickPickItem | boolean> {
-
-    // get available AVDs
-    const list: QuickPickItem[] | undefined = await items;
-    if (!list || list.length < 1) {
-        showMsg(MsgType.info, msglistEmpty);
-        return false;
-    }
-
-    // get AVD
-    const item: QuickPickItem | undefined = await window.showQuickPick(list, quickPickOption);
-    if (!item) {
-        showMsg(MsgType.info, msgNotSelected);
-        return false;
-    }
-
-    return item;
-}
-
-export async function showYesNoQuickPick(placeHolder: string) {
-    return await window.showQuickPick(["Yes", "No"], {
-        placeHolder: placeHolder,
-        canPickMany: false
-    });
-}
 
 
 
