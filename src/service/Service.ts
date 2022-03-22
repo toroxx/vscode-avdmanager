@@ -13,4 +13,5 @@ export abstract class Service {
     protected getConfig(): IConfig {
         return this.manager.getConfig();
     }
+
 }

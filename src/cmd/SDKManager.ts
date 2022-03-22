@@ -128,7 +128,7 @@ export let commands: { [key in Command]?: ICommandProp } = {
 
 export class SDKManager extends Executable {
     constructor(manager: Manager) {
-        super(manager, manager.getConfig().sdkManager ?? "", commands);
+        super(manager, manager.android.getSDKManager() ?? "", commands);
     }
 }
 

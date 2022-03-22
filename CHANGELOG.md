@@ -1,5 +1,17 @@
 # Android Virtual Device (AVD) Manager Change Log
 
+
+
+### 1.2.0
+
+* new config `avdmanager.sdkPath` and `avdmanager.cmdVersion`
+* auto check the sdkPath and executable paths valid
+* new commands
+  * avdmanager.setup-sdkpath
+  * avdmanager.setup-avdmanager
+  * avdmanager.setup-sdkmanager
+  * avdmanager.setup-emulator
+
 ### 1.1.3
 
 * SDK package icon with color

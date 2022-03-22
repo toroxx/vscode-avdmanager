@@ -136,7 +136,7 @@ let commands: { [key in Command]?: ICommandProp } = {
 
 export class AVDManager extends Executable {
     constructor(manager: Manager) {
-        super(manager, manager.getConfig().executable ?? "", commands);
+        super(manager, manager.android.getAVDManager() ?? "", commands);
     }
 }
 

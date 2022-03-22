@@ -163,7 +163,6 @@ export const execWithMsg = async function (manager: Manager, showLog: boolean, c
             () => { if (willLoadMsg && willLoadMsg !== "") { showMsg(MsgType.info, willLoadMsg); } },
             (error: any, stdout: string, stderr: string) => {
                 if (showLog) { manager.output.appendTime(); }
-
                 if (error) {
                     if (showLog) { manager.output.append(stderr, "error"); }
 
@@ -172,8 +171,9 @@ export const execWithMsg = async function (manager: Manager, showLog: boolean, c
                     reject(stderr);
                     return;
                 }
-                if (showLog) { manager.output.append(stdout); }
+               
 
+                if (showLog) { manager.output.append(stdout); }
                 if (success && success !== "") { showMsg(MsgType.info, success); }
                 setTimeout(() => { resolve(stdout); }, success ? 1500 : 0);
             });

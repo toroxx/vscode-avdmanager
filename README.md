@@ -30,22 +30,57 @@ inspired by [oognuyh/vscode-android-emulator-helper](https://github.com/oognuyh/
 
 * Launch AVD
 
-## Requirements
+## Setup the Adnroid SDK
 
-1. Download Android SDK Command-line Tools
-   [https://developer.android.com/studio/command-line](https://developer.android.com/studio/command-line)
-2. Download Emulator via cli tools
+### Steps
 
-   ```bash
-   sdkmanager emulator
-   ```
+1. Create Folder for the **SDK Root Path**  (E.g. C:/android/sdk)
+2. Create **cmdline-tools** folder inside the SDK Root
+   (E.g. C:/android/sdk/cmdline-tools)
+3. Download **Android SDK Command-line Tools**
+   [https://developer.android.com/studio#command-tools](https://developer.android.com/studio#command-tools)
+4. Extract the files. You may get a folder call "**cmdline-tools**" and rename to "**latest**"
+5. Move "**latest**" folder to cmdline-tools Folder
+   E.g. C:/android/sdk/cmdline-tools/latest
+
+### Folder Structure
+
+* C:/android/sdk/ (SDK Root)
+  * cmdline-tools
+    * latest (download from android.com)
+      * lib
+      * bin
+        * avdmanager
+        * sdkmanager
+
+Remember update `avdmanager.sdkPath` to Android SDK Root Path
+It should work fine, if the folder structure is correct.
 
 ## Extension Settings
+
+### Required
+
+* `avdmanager.sdkPath` : Android SDK Root Path
+  The location of the Android SDK Root Path. If blank, it will attempt to find it from the ANDROID_SDK_ROOT environment variable.
+* `avdmanager.cmdVersion`: Android SDK Command-Line Tools Version (default=latest)
+
+After updating the SDK Path. The AVD Manager will auto lookup all executable paths from the SDK.
+
+### Optional
 
 * `avdmanager.avdmanager`: AVD Manager executable path
 * `avdmanager.sdkManager`: SDK Manager executable path
 * `avdmanager.emulator`: Android emulator executable path
 * `avdmanager.emulatorOpt`: Android emulator execute [options](https://developer.android.com/studio/run/emulator-commandline)
+
+## Commands
+
+* `avdmanager.pkg-update-all` : Update All SDK Package
+* `avdmanager.pkg-accept-license` : Accept All SDK Licenses
+* `avdmanager.setup-sdkpath` : Update SDK Root Path
+* `avdmanager.setup-avdmanager` : Update AVDManage Path
+* `avdmanager.setup-sdkmanager` : Update SDKManage Path
+* `avdmanager.setup-emulator` : Update Emulator Path
 
 ## Screenshot
 

@@ -35,7 +35,11 @@
     "onView:avdmanager-sdk-tools",
     "onCommand:avdmanager.sdk-tools-refresh",
     "onCommand:avdmanager.pkg-accept-license",
-    "onCommand:avdmanager.pkg-update-all"
+    "onCommand:avdmanager.pkg-update-all",
+    "onCommand:avdmanager.setup-sdkpath",
+    "onCommand:avdmanager.setup-avdmanager",
+    "onCommand:avdmanager.setup-sdkmanager",
+    "onCommand:avdmanager.setup-emulator"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -103,6 +107,26 @@
       }
     ],
     "commands": [
+      {
+        "command": "avdmanager.setup-avdmanager",
+        "title": "Update AVD Manager Path",
+        "category": "AVDManager📱"
+      },
+      {
+        "command": "avdmanager.setup-sdkmanager",
+        "title": "Update SDK Manager Path",
+        "category": "AVDManager📱"
+      },
+      {
+        "command": "avdmanager.setup-emulator",
+        "title": "Update Emulator Path",
+        "category": "AVDManager📱"
+      },
+      {
+        "command": "avdmanager.setup-sdkpath",
+        "title": "Update SDK Root Path",
+        "category": "AVDManager📱"
+      },
       {
         "command": "avdmanager.avd-create",
         "title": "Create",
@@ -235,7 +259,7 @@
           "title": "Android SDK Root Path",
           "type": "string",
           "default": "",
-          "description": "Android SDK Root Path.\nWindows %LOCALAPPDATA%\\Android\\sdk or C:\\Android\\sdk\nLinux ~/Android/Sdk\nMac ~/Library/Android/sdk"
+          "markdownDescription": "The location of the Android SDK Root Path. If blank, it will attempt to find it from the ANDROID_SDK_ROOT environment variable."
         },
         "avdmanager.cmdVersion": {
           "title": "Android Command-Line Tools Version",
@@ -252,7 +276,7 @@
         "avdmanager.sdkManager": {
           "title": "Android SDK Manager executable (optional)",
           "type": "string",
-          "default": "sdkManager",
+          "default": "sdkmanager",
           "description": "Android SDK Manager executable path"
         },
         "avdmanager.emulator": {
@@ -306,5 +330,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/toroxx/vscode-avdmanager.git"
+  },
+  "dependencies": {
+    "node-fetch": "^3.2.3"
   }
 }

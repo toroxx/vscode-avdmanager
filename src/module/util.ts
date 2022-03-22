@@ -3,6 +3,16 @@ export function checkPathExists(filepath: string) {
     return fs.existsSync(filepath);
 }
 
+export function checkExecutable(filepath: string) {
+    try {
+        fs.accessSync(filepath, fs.constants.X_OK);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+
 export function strformat(str: string, ...params: string[]): string {
     let out = str;
     if (!params) {

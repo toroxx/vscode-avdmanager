@@ -29,6 +29,6 @@ let commands: { [key in Command]?: ICommandProp } = {
 
 export class Emulator extends Executable {
     constructor(manager: Manager) {
-        super(manager, manager.getConfig().emulator ?? "", commands);
+        super(manager, manager.android.getEmulator() ?? "", commands);
     }
 }

@@ -28,6 +28,11 @@ export function showOkCancelMsg(type: MsgType, message: string, options: Message
     return showMsg(type, message, options, "OK", "Cancel");
 }
 
+export async function showTargetOfSettingsSelectionMsg() {
+    return showMsg(MsgType.info, "Which target of settings do you what to update?", {},
+        "Global", "Workspace (Folder)", "Both", "Cancel");
+
+}
 
 export async function showQuickPick(
     items: Promise<QuickPickItem[] | undefined>,
