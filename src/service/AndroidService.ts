@@ -125,7 +125,7 @@ export class AndroidService extends Service {
                 });
 
             } else {
-                this.manager.output.append("Emulator path not specified!");
+                this.manager.output.append("Emulator path not specified / fail!😓");
                 mayFail = true;
             }
         });
