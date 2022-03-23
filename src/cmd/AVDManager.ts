@@ -47,7 +47,7 @@ let commands: { [key in Command]?: ICommandProp } = {
     //avdmanager create avd -n test -k "system-images;android-25;google_apis;x86"
     [Command.create]: {
         log: true,
-        command: `echo no | {{exe}} create avd -n {{0}} -k "{{1}}"`,
+        command: `echo no | {{exe}} create avd -n "{{0}}" -k "{{1}}"`,
         msg: `{{0}} is creating...`,
         successMsg: `{{0}} created successfully.`,
         failureMsg: `Failed to create {{0}}.`,
@@ -56,7 +56,7 @@ let commands: { [key in Command]?: ICommandProp } = {
     //move avd -n name [-p path] [-r new-name]
     [Command.rename]: {
         log: true,
-        command: `{{exe}} move avd -n {{0}} -r {{1}}`,
+        command: `{{exe}} move avd -n "{{0}}" -r "{{1}}"`,
         msg: `{{0}} is renaming to {{1}}...`,
         successMsg: `{{0}} rename to {{1}} successfully.`,
         failureMsg: `Failed to rename {{0}} to {{1}}.`
@@ -64,7 +64,7 @@ let commands: { [key in Command]?: ICommandProp } = {
     //delete avd -n name
     [Command.delete]: {
         log: true,
-        command: `{{exe}} delete avd -n {{0}}`,
+        command: `{{exe}} delete avd -n "{{0}}"`,
         msg: `{{0}} is deleting...`,
         successMsg: `{{0}} deleted successfully.`,
         failureMsg: `Failed to delete {{0}}.`

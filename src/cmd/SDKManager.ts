@@ -30,7 +30,7 @@ export let commands: { [key in Command]?: ICommandProp } = {
         log: true,
 
         type: CommandType.spawn,
-        command: `{{exe}} {{0}}`,
+        command: `{{exe}} "{{0}}"`,
 
         msg: `{{1}} is installing...`,
         successMsg: `{{1}} installed successfully.`,
@@ -117,7 +117,7 @@ export let commands: { [key in Command]?: ICommandProp } = {
     },
     [Command.uninstallPkg]: {
         log: true,
-        command: `{{exe}} --uninstall {{0}}`,
+        command: `{{exe}} --uninstall "{{0}}"`,
         msg: `{{1}} is uninstalling...`,
         successMsg: `{{1}} uninstalled successfully.`,
         failureMsg: `Failed to uninstall {{1}}.`,

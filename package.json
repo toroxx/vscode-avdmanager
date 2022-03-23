@@ -4,7 +4,7 @@
   "description": "Android Virtual Device Manager for VSCode",
   "publisher": "toroxx",
   "license": "MIT",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "Lawrence Lau",
     "email": "m@psi.tv",
@@ -107,6 +107,7 @@
       }
     ],
     "commands": [
+
       {
         "command": "avdmanager.setup-avdmanager",
         "title": "Update AVD Manager Path",

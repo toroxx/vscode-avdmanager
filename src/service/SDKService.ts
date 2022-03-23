@@ -66,7 +66,8 @@ export class SDKService extends Service {
 
 
     async acceptLicnese(sdkbin: string) {
-        let command = "echo y | {{exe}} --licenses";
+        let command = "{{exe}} --licenses";
+        
         let cmd = util.strformatNamed(command, { "exe": sdkbin });
 
         let t = term("Accept SDK licenses", cmd);
