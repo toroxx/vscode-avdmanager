@@ -15,7 +15,7 @@ export class AndroidService extends Service {
     }
 
     public async initCheck() {
-
+        this.manager.output.append("Config Checking start 👓 ... ");
         let configChanged = false;
         let mayFail = false;
 
@@ -29,6 +29,12 @@ export class AndroidService extends Service {
                 let newpath = await this.updatePathDiag("dir", ConfigItem.sdkPath, "Please select the Android SDK Root Path", "Android SDK Root path updated!", "Android SDK path not specified!");
                 if (newpath !== "") {
                     configChanged = true;
+
+                    let result = await showYesNoMsg(MsgType.warning, "Reload window to take effect");
+                    if (result === "Yes") {
+                        commands.executeCommand('workbench.action.reloadWindow');
+                    }
+                    return;
                 }
             }
         }
@@ -106,7 +112,12 @@ export class AndroidService extends Service {
                 }
 
             } else if (result === "Download Emulator") {
-                this.manager.sdk.installPKG("emulator", "Emulator");
+                let sdkbin = this.getSDKManager() ?? "";
+                await this.manager.sdk.acceptLicnese(sdkbin).then(()=>{
+                    this.manager.output.show();
+                    this.manager.sdk.installPKG("emulator", "Emulator");
+                });
+               
             } else {
                 this.manager.output.append("Emulator path not specified!");
                 mayFail = true;
@@ -120,7 +131,7 @@ export class AndroidService extends Service {
             }
         } else {
             if (mayFail) {
-                this.manager.output.append("\nSome of the features are loading failed and may not work correctly.\nPlease ensure all configure are correct");
+                this.manager.output.append("\nSome of the config are failed and may not work correctly.\nPlease ensure all configure are correct.😥");
             } else {
                 this.manager.output.append("\nEverything look fine! 😎");
             }
@@ -181,20 +192,6 @@ export class AndroidService extends Service {
             return 0; //SDK path exists
         }
         return -1;
-    }
-
-
-    public downloadCMDTools() {
-        let options = [];
-        for (const k in config.CMDTOOLS_DLPATH) {
-            options.push(new CMDToolLinkQuickPickItem(k, config.CMDTOOLS_DLPATH[k]));
-        }
-
-        showQuickPick(Promise.resolve(options), {
-            canPickMany: false,
-            placeHolder: "Select the CommandLine-Tool Link to download",
-        }, "Please CommandLine-Tool Link found",
-            "Please select one of the link to donwload");
     }
 
 

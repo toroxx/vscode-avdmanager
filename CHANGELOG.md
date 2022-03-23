@@ -1,5 +1,10 @@
 # Android Virtual Device (AVD) Manager Change Log
 
+### 1.2.1
+
+* fix command execute fail in linux and macOS [issue [#1](https://github.com/toroxx/vscode-avdmanager/issues/1)]
+* Try accept all license before install emulator
+
 ### 1.2.0
 
 * new config `avdmanager.sdkPath` and `avdmanager.cmdVersion`

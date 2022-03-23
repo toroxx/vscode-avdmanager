@@ -107,7 +107,6 @@
       }
     ],
     "commands": [
-
       {
         "command": "avdmanager.setup-avdmanager",
         "title": "Update AVD Manager Path",
@@ -331,8 +330,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/toroxx/vscode-avdmanager.git"
-  },
-  "dependencies": {
-    "node-fetch": "^3.2.3"
   }
 }

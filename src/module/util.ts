@@ -1,6 +1,15 @@
 import * as fs from "fs";
+
 export function checkPathExists(filepath: string) {
     return fs.existsSync(filepath);
+}
+
+export function isFolderEmpty(path: string) {
+    return fs.readdirSync(path).length === 0;
+}
+
+export function mkdir(path: fs.PathLike, recursive: boolean = false) {
+    return fs.mkdirSync(path, { recursive: recursive });
 }
 
 export function checkExecutable(filepath: string) {
@@ -11,6 +20,7 @@ export function checkExecutable(filepath: string) {
         return false;
     }
 }
+
 
 
 export function strformat(str: string, ...params: string[]): string {

@@ -16,14 +16,18 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	//avd manager
 	new AVDTreeView(context, manager);
-	console.log("avd load");
+	console.log("avd loaded");
 	//sdk manager
 	new SDKPlatformsTreeView(context, manager);
 	new SDKToolsTreeView(context, manager);
-	console.log("sdk load");
+	console.log("sdk loaded");
 
 	let sdkbin = manager.android.getSDKManager() ?? "";
 	subscribe(context, [
+
+		/*vscode.commands.registerCommand('avdmanager.install-cmdtools', async () => {
+			await manager.android.installCMDTools();
+		}),*/
 		vscode.commands.registerCommand('avdmanager.setup-sdkpath', async () => {
 			await manager.android.updatePathDiag("dir", ConfigItem.sdkPath, "Please select the Android SDK Root Path", "Android SDK Root path updated!", "Android SDK path not specified!");
 		}),
@@ -36,6 +40,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		vscode.commands.registerCommand('avdmanager.setup-emulator', async () => {
 			await manager.android.updatePathDiag("file", ConfigItem.emulator, "Please select the Emulator Path", "Emulator path updated!", "Emulator path not specified!");
 		}),
+
 		vscode.commands.registerCommand('avdmanager.pkg-install', async (node) => manager.sdk.pkgInstall(node)),
 		vscode.commands.registerCommand('avdmanager.pkg-uninstall', async (node) => manager.sdk.pkgUnInstall(node)),
 		vscode.commands.registerCommand('avdmanager.pkg-accept-license', () => { manager.sdk.acceptLicnese(sdkbin); }),
