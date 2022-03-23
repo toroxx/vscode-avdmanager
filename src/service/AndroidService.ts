@@ -46,14 +46,16 @@ export class AndroidService extends Service {
             this.manager.output.append("SDK Build Tools:          " + config.buildToolPath);
             this.manager.output.append("SDK Platform Tools:       " + config.platformToolsPath);
             this.manager.output.append("Emulator Path:            " + config.emuPath);
+            this.manager.output.append(" -- check OK 👍");
             this.manager.output.append("\n");
         } else {
-            showMsg(MsgType.info, "Android SDK path not specified!");
+            showMsg(MsgType.info, "Android SDK path not specified / fail!😓");
         }
 
         //check avd
+        this.manager.output.append("AVD Manager path:         " + this.getAVDManager());
         await this.checkAVDManager().then((o) => {
-            this.manager.output.append("AVD Manager path:         " + this.getAVDManager());
+            this.manager.output.append(" -- check OK 👍");
         }).catch(async (e) => {
             let result = await showMsg(MsgType.warning, "AVD Manager Not found/Not exist!", {}, "Update Path", "Download CmdLine Tools", "Cancel");
             if (result === "Update Path") {
@@ -69,14 +71,16 @@ export class AndroidService extends Service {
             } else if (result === "Download CmdLine Tools") {
                 env.openExternal(Uri.parse('https://developer.android.com/studio#command-tools'));
             } else {
-                this.manager.output.append("AVDManager path not specified!");
+                this.manager.output.append("AVDManager path not specified / fail!😓");
                 mayFail = true;
             }
         });
 
         //check sdk
+
+        this.manager.output.append("SDK Manager path:         " + this.getSDKManager());
         await this.checkSDKManager().then((o) => {
-            this.manager.output.append("SDK Manager path:         " + this.getSDKManager());
+            this.manager.output.append(" -- check OK 👍");
         }).catch(async (e) => {
             let result = await showMsg(MsgType.warning, "SDK Manager Not found/Not exist!", {}, "Update Path", "Download CmdLine Tools", "Cancel");
             if (result === "Update Path") {
@@ -91,14 +95,15 @@ export class AndroidService extends Service {
             } else if (result === "Download CmdLine Tools") {
                 env.openExternal(Uri.parse('https://developer.android.com/studio#command-tools'));
             } else {
-                this.manager.output.append("SDKManager path not specified!");
+                this.manager.output.append("SDKManager path not specified / fail!");
                 mayFail = true;
             }
         });
 
         //check emu
+        this.manager.output.append("Emulator path:            " + this.getEmulator());
         await this.checkEmulator().then((o) => {
-            this.manager.output.append("Emulator path:            " + this.getEmulator());
+            this.manager.output.append(" -- check OK 👍");
         }).catch(async (e) => {
             let result = await showMsg(MsgType.warning, "Emulator Not found/Not exist!", {}, "Update Emulator Path", "Download Emulator", "Cancel");
             if (result === "Update Path") {
@@ -108,16 +113,17 @@ export class AndroidService extends Service {
                     this.manager.output.append("Emulator path:            " + newpath);
                 } else {
                     mayFail = true;
-                    this.manager.output.append("Emulator path not specified!");
+                    this.manager.output.append("Emulator path not specified / fail!😓");
                 }
 
             } else if (result === "Download Emulator") {
                 let sdkbin = this.getSDKManager() ?? "";
-                await this.manager.sdk.acceptLicnese(sdkbin).then(()=>{
+                await this.manager.sdk.acceptLicnese(sdkbin).then(async () => {
                     this.manager.output.show();
-                    this.manager.sdk.installPKG("emulator", "Emulator");
+                    await this.manager.sdk.installPKG("emulator", "Android Emulator");
+                    await commands.executeCommand("avdmanager.sdk-tools-refresh");
                 });
-               
+
             } else {
                 this.manager.output.append("Emulator path not specified!");
                 mayFail = true;
@@ -182,7 +188,7 @@ export class AndroidService extends Service {
             await this.manager.setConfig(configkey, newpath, scope);
         }
 
-        await showMsg(msgType, title);
+        showMsg(msgType, title);
         return Promise.resolve(newpath);
     }
 
@@ -279,7 +285,8 @@ export class AndroidService extends Service {
     }
     public async checkEmulator() {
         let exec = this.getEmulator();
-        return execWithMsg(this.manager, false, exec + " -version");
+        let platform = this.manager.getPlatform();
+        return execWithMsg(this.manager, false, exec + " -version ");
     }
 }
 

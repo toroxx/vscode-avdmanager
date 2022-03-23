@@ -171,7 +171,9 @@ class AVDTreeDataProvider implements vscode.TreeDataProvider<TreeItem> {
                 return [];
             }
             avds.forEach((avd: AVD) => {
-                list.push(new AVDTreeItem(avd, vscode.TreeItemCollapsibleState.None));
+                if (avd.name && avd.name !== "") {
+                    list.push(new AVDTreeItem(avd, vscode.TreeItemCollapsibleState.None));
+                }
             });
             return list;
         });

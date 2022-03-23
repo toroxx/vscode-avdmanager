@@ -3,7 +3,8 @@
 ### 1.2.1
 
 * fix command execute fail in linux and macOS [issue [#1](https://github.com/toroxx/vscode-avdmanager/issues/1)]
-* Try accept all license before install emulator
+* try accept all license before install emulator
+* fix AVD list empty show "undefined | undefined" problem
 
 ### 1.2.0
 
