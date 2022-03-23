@@ -2,9 +2,10 @@
 
 ### 1.2.1
 
-* fix command execute fail in linux and macOS [issue [#1](https://github.com/toroxx/vscode-avdmanager/issues/1)]
-* try accept all license before install emulator
+* fix command execute fail in Linux and macOS [issue [#1](https://github.com/toroxx/vscode-avdmanager/issues/1)]
+* try to accept all licenses before installing the emulator
 * fix AVD list empty show "undefined | undefined" problem
+* update the config check message
 
 ### 1.2.0
 
