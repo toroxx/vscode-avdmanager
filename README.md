@@ -30,7 +30,7 @@ inspired by [oognuyh/vscode-android-emulator-helper](https://github.com/oognuyh/
 
 * Launch AVD
 
-## Setup the Adnroid SDK
+## Setup the Android SDK
 
 ### Steps
 
