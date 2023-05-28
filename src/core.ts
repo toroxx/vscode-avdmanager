@@ -101,7 +101,22 @@ export class Manager {
 
     public getConfig(): IConfig {
         let config = workspace.getConfiguration('avdmanager');
-        let sdkPath = config.get<string>(ConfigItem.sdkPath, process.env.ANDROID_SDK_ROOT ?? "");
+
+        
+        let sysSdkRoot = process.env.ANDROID_SDK_ROOT ?? "";
+        let androidHomeVal = process.env.ANDROID_HOME ?? "";
+        if (androidHomeVal !== "") {
+            sysSdkRoot = androidHomeVal;
+        }
+        
+
+        let sdkPath = config.get<string>(ConfigItem.sdkPath, sysSdkRoot);
+        if(sdkPath === ""){
+            sdkPath = sysSdkRoot;
+        }
+        console.log(`ENV SDK PATH: ${sysSdkRoot}`);
+        console.log(`Final SDK PATH: ${sdkPath}`);
+
         let cmdVersion = config.get<string>(ConfigItem.cmdVersion, "latest");
 
         let cmdPath = path.join(sdkPath, "cmdline-tools", cmdVersion, "bin");

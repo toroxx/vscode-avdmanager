@@ -61,7 +61,7 @@ It should work fine, if the folder structure is correct.
 ### Required
 
 * `avdmanager.sdkPath` : Android SDK Root Path
-  The location of the Android SDK Root Path. If blank, it will attempt to find it from the ANDROID_SDK_ROOT environment variable.
+  The location of the Android SDK Root Path. If blank, it will attempt to find it from the `ANDROID_SDK_ROOT` or `ANDROID_HOME` environment variables.
 * `avdmanager.cmdVersion`: Android SDK Command-Line Tools Version (default=latest)
 
 After updating the SDK Path. The AVD Manager will auto lookup all executable paths from the SDK.

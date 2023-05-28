@@ -1,5 +1,9 @@
 # Android Virtual Device (AVD) Manager Change Log
 
+### 1.2.2
+
+* attempt to find SDK path from the `ANDROID_SDK_ROOT` or `ANDROID_HOME` environment variable
+
 ### 1.2.1
 
 * fix command execute fail in Linux and macOS [issue [#1](https://github.com/toroxx/vscode-avdmanager/issues/1)]

@@ -4,7 +4,7 @@
   "description": "Android Virtual Device Manager for VSCode",
   "publisher": "toroxx",
   "license": "MIT",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": {
     "name": "Lawrence Lau",
     "email": "m@psi.tv",
@@ -259,7 +259,7 @@
           "title": "Android SDK Root Path",
           "type": "string",
           "default": "",
-          "markdownDescription": "The location of the Android SDK Root Path. If blank, it will attempt to find it from the ANDROID_SDK_ROOT environment variable."
+          "markdownDescription": "The location of the Android SDK Root Path. If blank, it will attempt to find it from the `ANDROID_SDK_ROOT` or `ANDROID_HOME` environment variable."
         },
         "avdmanager.cmdVersion": {
           "title": "Android Command-Line Tools Version",
