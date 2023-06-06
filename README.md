@@ -2,6 +2,7 @@
 [![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/toroxx.vscode-avdmanager?label=VS%20Marketplace&logo=sdf)](https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager)
 [![OpenVSX Registry](https://img.shields.io/open-vsx/v/toroxx/vscode-avdmanager?label=Open%20VSX)](https://open-vsx.org/extension/toroxx/vscode-avdmanager)
 [![VS Market installs](https://img.shields.io/visual-studio-marketplace/i/toroxx.vscode-avdmanager?color=green&label=Installs)](https://marketplace.visualstudio.com/items?itemName=toroxx.vscode-avdmanager)
+<a target="_blank" href="https://www.buymeacoffee.com/toroxx12"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" height="20px"></a>
 
 # Android Virtual Device (AVD) Manager
 
