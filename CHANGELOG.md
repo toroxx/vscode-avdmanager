@@ -1,5 +1,10 @@
 # Android Virtual Device (AVD) Manager Change Log
 
+### 1.3.0
+
+* new config `avdmanager.avdHome` for avdmanager
+* attempt to find AVD Home path from the `ANDROID_AVD_HOME`
+
 ### 1.2.2
 
 * attempt to find SDK path from the `ANDROID_SDK_ROOT` or `ANDROID_HOME` environment variable

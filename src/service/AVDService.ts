@@ -1,12 +1,17 @@
+import * as nodePath from "node:path";
 import { Manager } from '../core';
 import { AVD, AVDDevice, AVDTarget, AVDManager, Command as avdcommand } from '../cmd/AVDManager';
 import { Service } from './Service';
 import { Emulator, Command as EmuCommand } from '../cmd/Emulator';
+
 export class AVDService extends Service {
     readonly avdmanager: AVDManager;
     readonly emulator: Emulator;
+    readonly manager: Manager;
+
     constructor(manager: Manager) {
         super(manager);
+        this.manager = manager;
         this.avdmanager = new AVDManager(manager);
         this.emulator = new Emulator(manager);
 
@@ -41,7 +46,12 @@ export class AVDService extends Service {
     }
 
     async createAVD(avdname: string, path: string, imgname: string) {
-        return this.avdmanager.exec<AVD>(avdcommand.create, avdname, path, imgname);
+        const avdHome = this.manager.getConfig().avdHome;
+        if (avdHome === "") {
+            return this.avdmanager.exec<AVD>(avdcommand.create, avdname, path, imgname);
+        }
+        const avdPath = nodePath.join(avdHome, avdname + ".avd");
+        return this.avdmanager.exec<AVD>(avdcommand.createWithPath, avdname, path, imgname, avdPath);
     }
     async renameAVD(name: string, newName: string) {
         return this.avdmanager.exec<AVD>(avdcommand.rename, name, newName);

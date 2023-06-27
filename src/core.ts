@@ -12,6 +12,7 @@ export interface IConfig {
     /** PATHS */
     sdkPath: string
     cmdPath: string
+    avdHome: string
     buildToolPath: string
     platformToolsPath: string
     emuPath: string
@@ -28,6 +29,7 @@ export interface IConfig {
 
 export enum ConfigItem {
     sdkPath = "sdkPath",
+    avdHome = "avdHome",
     cmdVersion = "cmdVersion",
     executable = "executable",
     emulator = "emulator",
@@ -102,20 +104,29 @@ export class Manager {
     public getConfig(): IConfig {
         let config = workspace.getConfiguration('avdmanager');
 
-        
+
+        //SDK Root
         let sysSdkRoot = process.env.ANDROID_SDK_ROOT ?? "";
         let androidHomeVal = process.env.ANDROID_HOME ?? "";
         if (androidHomeVal !== "") {
             sysSdkRoot = androidHomeVal;
         }
-        
-
         let sdkPath = config.get<string>(ConfigItem.sdkPath, sysSdkRoot);
-        if(sdkPath === ""){
+        if (sdkPath === "") { //replace the env value if config is empty
             sdkPath = sysSdkRoot;
         }
         console.log(`ENV SDK PATH: ${sysSdkRoot}`);
         console.log(`Final SDK PATH: ${sdkPath}`);
+
+        //AVD Home
+        let envAvdHome = process.env.ANDROID_AVD_HOME ?? "";
+        console.log(`ENV AVD Home PATH: ${envAvdHome}`);
+        let avdHome = config.get<string>(ConfigItem.avdHome, envAvdHome);
+        console.log(`Config AVD Home PATH: ${avdHome}`);
+        if (avdHome === "") { //replace the env value if config is empty
+            avdHome = envAvdHome;
+        }
+        console.log(`Final AVD Home PATH: ${avdHome}`);
 
         let cmdVersion = config.get<string>(ConfigItem.cmdVersion, "latest");
 
@@ -131,6 +142,7 @@ export class Manager {
         return {
             sdkPath: sdkPath,
             cmdPath: cmdPath,
+            avdHome: avdHome,
             buildToolPath: buildToolPath,
             platformToolsPath: platformToolsPath,
             emuPath: emuPath,

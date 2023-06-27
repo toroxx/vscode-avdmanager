@@ -70,6 +70,7 @@ After updating the SDK Path. The AVD Manager will auto lookup all executable pat
 ### Optional
 
 * `avdmanager.avdmanager`: AVD Manager executable path
+* `avdmanager.avdHome`: AVD Home path for AVDManager
 * `avdmanager.sdkManager`: SDK Manager executable path
 * `avdmanager.emulator`: Android emulator executable path
 * `avdmanager.emulatorOpt`: Android emulator execute [options](https://developer.android.com/studio/run/emulator-commandline)

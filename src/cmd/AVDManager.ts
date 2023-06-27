@@ -34,6 +34,7 @@ export interface AVD {
 
 export enum Command {
     create = "create",
+    createWithPath = "createWithPath",
     rename = "rename",
     delete = "delete",
     listTarget = "listTarget",
@@ -48,6 +49,14 @@ let commands: { [key in Command]?: ICommandProp } = {
     [Command.create]: {
         log: true,
         command: `echo no | {{exe}} create avd -n "{{0}}" -k "{{1}}"`,
+        msg: `{{0}} is creating...`,
+        successMsg: `{{0}} created successfully.`,
+        failureMsg: `Failed to create {{0}}.`,
+
+    },
+    [Command.createWithPath]: {
+        log: true,
+        command: `echo no | {{exe}} create avd -n "{{0}}" -k "{{1}}" --path "{{3}}" --force`,
         msg: `{{0}} is creating...`,
         successMsg: `{{0}} created successfully.`,
         failureMsg: `Failed to create {{0}}.`,

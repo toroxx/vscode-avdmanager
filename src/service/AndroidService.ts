@@ -76,6 +76,12 @@ export class AndroidService extends Service {
             }
         });
 
+        let avdHome = config.avdHome;
+        if (config.avdHome === ""){
+            avdHome = "System Default";
+        }
+        this.manager.output.append("AVD Home path:            " + avdHome);
+        this.manager.output.append("");
         //check sdk
 
         this.manager.output.append("SDK Manager path:         " + this.getSDKManager());
