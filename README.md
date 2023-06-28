@@ -92,17 +92,22 @@ Create AVD [+ Button]
 
 ![img](image/README/1647306492723.png)
 
-Rename AVD [Pen Icon Button]
+Rename AVD [Pen Icon Button]  
+  
+![img](image/README/1647306376053-2.png)
 
-![img](image/README/1647306376053.png)
+Open AVD config.ini  [File Button] and Open AVD config folder  [Folder Button]
+
+![img](image/README/202306281147001.png)
 
 Delete AVD [Right Click on AVD Name]
 
-![img](image/README/1647306333965.png)
+![img](image/README/1647306333965-2.png)
+
 
 AVD Details [Mouseover on the AVD name]
 
-![img](image/README/1647306806230.png)
+![img](image/README/1647306806230-2.png)
 
 ### SDK Platforms / Tools
 

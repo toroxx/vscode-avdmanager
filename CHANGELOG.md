@@ -1,5 +1,10 @@
 # Android Virtual Device (AVD) Manager Change Log
 
+### 1.3.1
+
+* add `Open AVD folder` and `Open AVD config.ini` in AVD menu
+* update code name for API level 33, 34
+
 ### 1.3.0
 
 * new config `avdmanager.avdHome` for avdmanager
