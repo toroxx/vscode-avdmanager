@@ -1,4 +1,4 @@
-
+import * as nodePath from 'path';
 import * as vscode from 'vscode';
 import { AVD } from '../cmd/AVDManager';
 import { Manager } from '../core';
@@ -36,6 +36,22 @@ export class AVDTreeView {
                 let name = node?.avd?.name ?? undefined;
                 this.renameAVDDiag(name).then(() => this.provider.refresh());
             }),
+            vscode.commands.registerCommand('avdmanager.avd-showdir', async (node) => {
+                let { name, path } = node?.avd;
+                if (path !== undefined) {
+                    await vscode.commands.executeCommand('revealFileInOS', vscode.Uri.file(path));
+                }
+            }),
+            vscode.commands.registerCommand('avdmanager.avd-showconfigfile', async (node) => {
+                let { name, path } = node?.avd;
+                if (path !== undefined) {
+                    let configPath = nodePath.join(path, "config.ini");
+                    //console.log("avdmanager.avd-showdir", configPath);
+                    vscode.workspace.openTextDocument(configPath)
+                        .then(document => vscode.window.showTextDocument(document, { preserveFocus: true, preview: false }));
+                }
+            }),
+
             vscode.commands.registerCommand('avdmanager.avd-delete', async (node) => {
                 let name = node?.avd?.name ?? undefined;
                 this.deleteAVDDiag(name).then(() => this.provider.refresh());

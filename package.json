@@ -151,6 +151,16 @@
         "icon": "$(notebook-edit)"
       },
       {
+        "command": "avdmanager.avd-showdir",
+        "title": "Open AVD folder",
+        "icon": "$(folder)"
+      },
+      {
+        "command": "avdmanager.avd-showconfigfile",
+        "title": "Open AVD config.ini",
+        "icon": "$(preferences-open-settings)"
+      },
+      {
         "command": "avdmanager.avd-delete",
         "title": "Delete",
         "icon": "$(trash)"
@@ -232,8 +242,19 @@
           "group": "inline@2"
         },
         {
+          "command": "avdmanager.avd-showconfigfile",
+          "when": "view == avdmanager-avd",
+          "group": "inline@3"
+        },
+        {
+          "command": "avdmanager.avd-showdir",
+          "when": "view == avdmanager-avd",
+          "group": "inline@4"
+        },
+        {
           "command": "avdmanager.avd-delete",
-          "when": "view == avdmanager-avd"
+          "when": "view == avdmanager-avd",
+          "group": "avd-menu@3"
         },
         {
           "command": "avdmanager.avd-create",
