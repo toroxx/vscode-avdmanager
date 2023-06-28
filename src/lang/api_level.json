@@ -1,5 +1,9 @@
 [
-  { "level": "32", "version": "12L" },
+  { "level": "34", "code": "Upside Down Cake", "version": "14" },
+  { "level": "33-ext5", "code": "Tiramisu", "version": "13 (33-ext5)" },
+  { "level": "33-ext4", "code": "Tiramisu", "version": "13 (33-ext4)" },
+  { "level": "33", "code": "Tiramisu", "version": "13" },
+  { "level": "32", "code": "S_V2", "version": "12L" },
   { "level": "31", "code": "S", "version": "12" },
   { "level": "30", "code": "R", "version": "11" },
   { "level": "29", "code": "Q", "version": "10" },
