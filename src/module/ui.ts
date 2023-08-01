@@ -38,7 +38,7 @@ export async function showQuickPick(
     items: Promise<QuickPickItem[] | undefined>,
     quickPickOption: QuickPickOptions,
     msglistEmpty: string,
-    msgNotSelected: string): Promise<QuickPickItem | boolean> {
+    msgNotSelected: string = ""): Promise<QuickPickItem | boolean> {
 
     // get available AVDs
     const list: QuickPickItem[] | undefined = await items;
@@ -50,7 +50,9 @@ export async function showQuickPick(
     // get AVD
     const item: QuickPickItem | undefined = await window.showQuickPick(list, quickPickOption);
     if (!item) {
-        showMsg(MsgType.info, msgNotSelected);
+        if (msgNotSelected !== "") {
+            showMsg(MsgType.info, msgNotSelected);
+        }
         return false;
     }
 
