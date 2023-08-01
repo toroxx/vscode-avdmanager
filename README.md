@@ -92,6 +92,15 @@ Create AVD [+ Button]
 
 ![img](image/README/1647306492723.png)
 
+Create AVD - new AVD Name
+
+![img](image/README/2023-08-01214131.png)
+
+Create AVD - device selection
+
+![img](image/README/2023-08-01214153.png)
+
+
 Rename AVD [Pen Icon Button]  
   
 ![img](image/README/1647306376053-2.png)

@@ -1,5 +1,9 @@
 # Android Virtual Device (AVD) Manager Change Log
 
+### 1.4.0
+
+* show AVD devices list when creating new AVD
+
 ### 1.3.1
 
 * add `Open AVD folder` and `Open AVD config.ini` in AVD menu
