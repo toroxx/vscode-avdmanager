@@ -1,11 +1,12 @@
 import * as nodePath from 'path';
 import * as vscode from 'vscode';
-import { AVD } from '../cmd/AVDManager';
+import { AVD, AVDDevice } from '../cmd/AVDManager';
 import { Manager } from '../core';
 import { showMsg, showQuickPick, MsgType, showYesNoQuickPick } from '../module/ui';
 
 import { subscribe } from '../module/';
 import { AVDQuickPickItem } from './AVDQuickPick';
+import { AVDDeviceQuickPickItem } from './AVDDeviceQuickPick';
 
 
 
@@ -84,6 +85,23 @@ export class AVDTreeView {
         return (selected as AVDQuickPickItem)?.avd?.name ?? false;
     }
 
+
+    async getAVDDeviceQuickPickItems(): Promise<AVDDeviceQuickPickItem[] | undefined> {
+
+        let defaultItem: AVDDeviceQuickPickItem = new AVDDeviceQuickPickItem({
+            id: -1, idName: "", name: "Default (No device definition)", oem: "",
+        });
+        return this.manager.avd.getAVDDeviceList()
+            .then(devices => {
+                return devices === undefined ? devices : devices.map((device: AVDDevice) => new AVDDeviceQuickPickItem(device));
+            }).then((devices) => {
+                if (Array.isArray(devices)) {
+                    return [defaultItem, ...devices];
+                }
+                return [defaultItem];
+            });
+    };
+
     async createAVDDiag(path: string, name: string) {
 
         //get new name
@@ -104,11 +122,26 @@ export class AVDTreeView {
             },
         });
         if (!newAvdName) {
-            showMsg(MsgType.info, "The new AVD cannot be blank.");
+            showMsg(MsgType.info, "The AVD name cannot be blank.");
             return;
         }
 
-        await this.manager.avd.createAVD(newAvdName, path, name);
+        const device = await showQuickPick(this.getAVDDeviceQuickPickItems(), {
+            //placeHolder: "Select AVD Device definition",
+            canPickMany: false,
+            title: "Select AVD Device definition",
+        },
+            "No AVD device definition. Please retry.",
+            "No AVD device definition selected");
+
+
+        const deviceId = (device as AVDDeviceQuickPickItem)?.avdDevice?.id ?? -2;
+        if (deviceId === -2) {
+            showMsg(MsgType.info, "Please Select one of the AVD device definition.");
+            return;
+        }
+
+        await this.manager.avd.createAVD(newAvdName, path, name, deviceId);
         await this.manager.avd.getAVDList(true); //reload cache
     }
 

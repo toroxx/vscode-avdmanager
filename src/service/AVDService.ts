@@ -45,13 +45,18 @@ export class AVDService extends Service {
         return out;
     }
 
-    async createAVD(avdname: string, path: string, imgname: string) {
+    async createAVD(avdname: string, path: string, imgname: string, device: number = -1) {
         const avdHome = this.manager.getConfig().avdHome;
-        if (avdHome === "") {
-            return this.avdmanager.exec<AVD>(avdcommand.create, avdname, path, imgname);
+
+        let extra = "";
+        if (avdHome !== "") {
+            const avdPath = nodePath.join(avdHome, avdname + ".avd");
+            extra += ` --path "${avdPath}" `;
         }
-        const avdPath = nodePath.join(avdHome, avdname + ".avd");
-        return this.avdmanager.exec<AVD>(avdcommand.createWithPath, avdname, path, imgname, avdPath);
+        if (device >= 0) {
+            extra += ` --device "${device}" `;
+        }
+        return this.avdmanager.exec<AVD>(avdcommand.create, avdname, path, imgname, extra);
     }
     async renameAVD(name: string, newName: string) {
         return this.avdmanager.exec<AVD>(avdcommand.rename, name, newName);
