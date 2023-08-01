@@ -34,7 +34,6 @@ export interface AVD {
 
 export enum Command {
     create = "create",
-    createWithPath = "createWithPath",
     rename = "rename",
     delete = "delete",
     listTarget = "listTarget",
@@ -48,20 +47,13 @@ let commands: { [key in Command]?: ICommandProp } = {
     //avdmanager create avd -n test -k "system-images;android-25;google_apis;x86"
     [Command.create]: {
         log: true,
-        command: `echo no | {{exe}} create avd -n "{{0}}" -k "{{1}}"`,
+        command: `echo no | {{exe}} create avd -n "{{0}}" -k "{{1}}" {{3}} --force`,
         msg: `{{0}} is creating...`,
         successMsg: `{{0}} created successfully.`,
         failureMsg: `Failed to create {{0}}.`,
 
     },
-    [Command.createWithPath]: {
-        log: true,
-        command: `echo no | {{exe}} create avd -n "{{0}}" -k "{{1}}" --path "{{3}}" --force`,
-        msg: `{{0}} is creating...`,
-        successMsg: `{{0}} created successfully.`,
-        failureMsg: `Failed to create {{0}}.`,
 
-    },
     //move avd -n name [-p path] [-r new-name]
     [Command.rename]: {
         log: true,
@@ -96,7 +88,7 @@ let commands: { [key in Command]?: ICommandProp } = {
 
             return list.map((v) => {
                 return {
-                    id: v["id"], idName: v["idName"], name: v["Name"], type: v["Type"],
+                    id: parseInt(v["id"]), idName: v["idName"], name: v["Name"], type: v["Type"],
                     apiLevel: v["API level"], revision: v["Revision"]
                 };
             });
