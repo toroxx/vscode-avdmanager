@@ -12,7 +12,7 @@ export class AVDDeviceQuickPickItem implements QuickPickItem {
         this.label = device.name;
         this.description = "";
         if (device.id >= 0) {
-            this.description = device.oem + (device.tag === "" ? "" : ` | ${device.tag}`) + " | ID: " + device.id;
+            this.description = device.oem + (device.tag === "" || device.tag === undefined ? "" : ` | ${device.tag}`) + " | ID: " + device.id;
         }
 
 
