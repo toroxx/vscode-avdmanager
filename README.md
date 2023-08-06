@@ -39,7 +39,7 @@ inspired by [oognuyh/vscode-android-emulator-helper](https://github.com/oognuyh/
 2. Create **cmdline-tools** folder inside the SDK Root
    (E.g. C:/android/sdk/cmdline-tools)
 3. Download **Android SDK Command-line Tools**
-   [https://developer.android.com/studio#command-tools](https://developer.android.com/studio#command-tools)
+   [https://developer.android.com/studio#command-line-tools-only](https://developer.android.com/studio#command-line-tools-only)
 4. Extract the files. You may get a folder call "**cmdline-tools**" and rename to "**latest**"
 5. Move "**latest**" folder to cmdline-tools Folder
    E.g. C:/android/sdk/cmdline-tools/latest
