@@ -33,6 +33,9 @@ inspired by [oognuyh/vscode-android-emulator-helper](https://github.com/oognuyh/
 
 ## Setup Android SDK
 
+### Requirement
+- Install JDK (Oracle JDK or OpenJDK)
+
 ### Steps
 
 1. Create Folder for the `SDK Root Path`  (E.g. C:/android/sdk)
@@ -56,6 +59,9 @@ inspired by [oognuyh/vscode-android-emulator-helper](https://github.com/oognuyh/
 
 Remember update `avdmanager.sdkPath` to Android SDK Root Path
 It should work fine, if the folder structure is correct.
+
+### Setup guide 
+[Setup Guide for sharing the SDK to Android Studio, VSCode and VSCode-like tools (E.g. VSCodium)](README-Setup.md)
 
 ## Extension Settings
 
