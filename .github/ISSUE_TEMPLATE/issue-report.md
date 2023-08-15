@@ -17,4 +17,4 @@ Steps to reproduce the behaviour:
 A clear and concise description of what you expected to happen.
 
 **Screenshots and output logs**
-If applicable, add screenshots or output logs to help explain your problem.
+If applicable, add config, screenshots or output logs to help explain your problem.
