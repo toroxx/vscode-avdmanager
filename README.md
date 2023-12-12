@@ -34,7 +34,8 @@ inspired by [oognuyh/vscode-android-emulator-helper](https://github.com/oognuyh/
 ## Setup Android SDK
 
 ### Requirement
-- Install JDK (Oracle JDK or OpenJDK)
+- Install JDK 8 (Oracle JDK or OpenJDK)
+
 
 ### Steps
 
