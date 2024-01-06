@@ -1,7 +1,7 @@
 # Setup Guide for sharing the SDK to Android Studio, VSCode and VSCode-like tools (E.g. VSCodium)
 
 ## Requirement
-- Install JDK (Oracle JDK or OpenJDK)
+- Install JDK 8 (Oracle JDK or OpenJDK)
 
 ## Preparing the SDK
 
